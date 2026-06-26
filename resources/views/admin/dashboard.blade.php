@@ -21,7 +21,9 @@
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <h2>Gossip & Blog</h2>
-          <span style="font-size: 28px;">📝</span>
+          <div style="width: 55px; height: 55px; border-radius: 50%; overflow: hidden; border: 2.5px solid var(--bubblegum); box-shadow: 0 4px 10px rgba(255, 79, 163, 0.2); flex-shrink: 0;">
+            <img src="{{ asset('img/blog.jpg') }}" alt="Gossip & Blog" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
         </div>
         <p style="font-size: 14px; color: #666; margin-bottom: 16px; line-height: 1.5;">
           Redacta los chismes de moda y las novedades semanales. Todas las entradas se muestran de forma dinámica en la web pública.
@@ -42,7 +44,9 @@
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <h2>Outfits Catalog</h2>
-          <span style="font-size: 28px;">👗</span>
+          <div style="width: 55px; height: 55px; border-radius: 50%; overflow: hidden; border: 2.5px solid var(--hot-pink); box-shadow: 0 4px 10px rgba(255, 79, 163, 0.2); flex-shrink: 0;">
+            <img src="{{ asset('img/outfitscatalog.jpg') }}" alt="Outfits" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
         </div>
         <p style="font-size: 14px; color: #666; margin-bottom: 16px; line-height: 1.5;">
           Administra la colección de outfits, stock de prendas y precios para el lookbook de la tienda.
@@ -63,7 +67,9 @@
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <h2>Membresías & Users</h2>
-          <span style="font-size: 28px;">💕</span>
+          <div style="width: 55px; height: 55px; border-radius: 50%; overflow: hidden; border: 2.5px solid var(--dark-magenta); box-shadow: 0 4px 10px rgba(255, 79, 163, 0.2); flex-shrink: 0;">
+            <img src="{{ asset('img/user.jpg') }}" alt="Users" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
         </div>
         <p style="font-size: 14px; color: #666; margin-bottom: 16px; line-height: 1.5;">
           Verifica la base de usuarios registrados, roles activos, y los servicios contratados o compras de outfits realizadas.
