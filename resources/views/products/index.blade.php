@@ -99,12 +99,12 @@
 }
 
 .sticker-wednesday {
-  background: #ffff33;
-  color: black;
+  background: #fde6ef;
+  color: var(--hot-pink);
   top: -8px;
   right: -5px;
   transform: rotate(10deg);
-  border: 2px dashed #000;
+  border: 2px dashed var(--hot-pink);
 }
 
 .sticker-limited {
@@ -116,25 +116,27 @@
 }
 
 .sticker-classic {
-  background: #000000;
-  color: #00ff00;
+  background: #121212;
+  color: var(--hot-pink);
   top: -12px;
   left: 20px;
   transform: rotate(-4deg);
+  border: 1px solid var(--hot-pink);
 }
 
 .sticker-cute {
-  background: #ffcc00;
-  color: black;
+  background: #ffeff5;
+  color: var(--hot-pink);
   top: 15px;
   right: -12px;
   transform: rotate(15deg);
+  border: 1px solid var(--hot-pink);
 }
 
 .sticker-rich {
-  background: linear-gradient(135deg, #ffd700, #ffa500);
+  background: var(--dark-magenta);
   color: white;
-  border: 1px solid #ff8c00;
+  border: 1.5px solid var(--hot-pink);
   top: -8px;
   left: -8px;
   transform: rotate(-8deg);
@@ -149,8 +151,9 @@
 }
 
 .sticker-omg {
-  background: #00ffff;
-  color: black;
+  background: #ffffff;
+  color: var(--hot-pink);
+  border: 2px dotted var(--hot-pink);
   bottom: 20px;
   right: -10px;
   transform: rotate(-15deg);
@@ -159,6 +162,112 @@
 .outfit-card:hover .card-sticker {
   transform: scale(1.1) rotate(0deg);
   box-shadow: 3px 6px 12px rgba(0,0,0,0.25);
+}
+
+/* --- DECORACIONES DE SCRAPBOOK EN LOS COSTADOS --- */
+.scrapbook-deco {
+  position: absolute;
+  top: 150px;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.left-deco {
+  left: -180px;
+}
+
+.right-deco {
+  right: -180px;
+}
+
+@media (max-width: 1760px) {
+  .scrapbook-deco {
+    display: none;
+  }
+}
+
+.kiss-deco {
+  width: 65px;
+  height: 45px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path d="M 10 32 Q 30 14 50 24 Q 70 14 90 32 Q 75 44 50 37 Q 25 44 10 32 Z" fill="%23ff69b4"/><path d="M 12 35 Q 32 50 50 44 Q 68 50 88 35 Q 73 60 50 52 Q 27 60 12 35 Z" fill="%23e03d8d"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(2px 3px 5px rgba(255, 79, 163, 0.2));
+}
+
+.tape-deco {
+  width: 90px;
+  height: 25px;
+  background: rgba(255, 182, 193, 0.4);
+  border-left: 2px dashed rgba(255, 79, 163, 0.3);
+  border-right: 2px dashed rgba(255, 79, 163, 0.3);
+  box-shadow: 1px 2px 5px rgba(0,0,0,0.05);
+}
+
+.heart-doodle path, .stars-doodle path {
+  stroke-dasharray: 4 2;
+}
+
+/* --- RANSOM LETTERS / RECORTES DE REVISTA --- */
+.ransom-word {
+  display: inline-flex;
+  gap: 4px;
+  margin: 15px;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+}
+
+.ransom-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 42px;
+  font-weight: 900;
+  font-size: 24px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.rl-black-serif {
+  background: #121212;
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  clip-path: polygon(4% 6%, 96% 2%, 91% 94%, 8% 90%);
+}
+
+.rl-white-sans {
+  background: #ffffff;
+  color: #121212;
+  font-family: 'Inter', sans-serif;
+  border: 1.5px solid #121212;
+  clip-path: polygon(10% 2%, 92% 8%, 95% 92%, 3% 97%);
+}
+
+.rl-black-mono {
+  background: #121212;
+  color: #ffffff;
+  font-family: 'Special Elite', monospace;
+  clip-path: polygon(2% 10%, 98% 3%, 89% 95%, 7% 92%);
+}
+
+.rl-white-marker {
+  background: #ffffff;
+  color: #121212;
+  font-family: 'Permanent Marker', cursive;
+  border: 2px solid #121212;
+  clip-path: polygon(8% 8%, 92% 4%, 97% 91%, 5% 95%);
+}
+
+.rl-pink-serif {
+  background: var(--hot-pink);
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  clip-path: polygon(5% 12%, 95% 6%, 92% 98%, 10% 88%);
 }
 
 /* --- NEW DETALLE GRID LAYOUT --- */
@@ -497,6 +606,62 @@
 
 @section('content')
 <div id="gallery-view">
+  <!-- Left Margin Scrapbook Deco -->
+  <div class="scrapbook-deco left-deco">
+    <!-- FETCH -->
+    <div class="ransom-word" style="transform: rotate(-8deg);">
+      <span class="ransom-letter rl-black-serif">F</span>
+      <span class="ransom-letter rl-white-sans">E</span>
+      <span class="ransom-letter rl-black-mono">T</span>
+      <span class="ransom-letter rl-white-marker">C</span>
+      <span class="ransom-letter rl-pink-serif">H</span>
+    </div>
+    
+    <!-- Kiss Mark -->
+    <div class="kiss-deco" style="transform: rotate(15deg); margin-top: 30px;"></div>
+    
+    <!-- QUEEN -->
+    <div class="ransom-word" style="transform: rotate(5deg); margin-top: 40px;">
+      <span class="ransom-letter rl-white-marker">Q</span>
+      <span class="ransom-letter rl-black-serif">U</span>
+      <span class="ransom-letter rl-white-sans">E</span>
+      <span class="ransom-letter rl-black-mono">E</span>
+      <span class="ransom-letter rl-pink-serif">N</span>
+    </div>
+
+    <!-- Heart doodle -->
+    <svg class="heart-doodle" viewBox="0 0 100 100" style="width: 70px; margin-top: 30px; transform: rotate(-10deg);">
+      <path d="M 50,30 C 50,10 20,10 20,40 C 20,70 50,90 50,90 C 50,90 80,70 80,40 C 80,10 50,10 50,30 Z" fill="none" stroke="var(--hot-pink)" stroke-width="4" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- Right Margin Scrapbook Deco -->
+  <div class="scrapbook-deco right-deco">
+    <!-- KISS -->
+    <div class="ransom-word" style="transform: rotate(6deg);">
+      <span class="ransom-letter rl-white-marker">K</span>
+      <span class="ransom-letter rl-black-serif">I</span>
+      <span class="ransom-letter rl-white-sans">S</span>
+      <span class="ransom-letter rl-pink-serif">S</span>
+    </div>
+
+    <!-- Sparkle Stars -->
+    <svg class="stars-doodle" viewBox="0 0 100 100" style="width: 60px; margin-top: 20px; transform: rotate(12deg);">
+      <path d="M 50,10 L 53,38 L 80,38 L 58,55 L 66,82 L 50,65 L 34,82 L 42,55 L 20,38 L 47,38 Z" fill="none" stroke="var(--hot-pink)" stroke-width="3" />
+      <path d="M 20,70 L 22,78 L 30,78 L 24,83 L 26,90 L 20,86 L 14,90 L 16,83 L 10,78 L 18,78 Z" fill="none" stroke="var(--bubblegum)" stroke-width="2" />
+    </svg>
+
+    <!-- OMG -->
+    <div class="ransom-word" style="transform: rotate(-12deg); margin-top: 40px;">
+      <span class="ransom-letter rl-black-mono">O</span>
+      <span class="ransom-letter rl-white-sans">M</span>
+      <span class="ransom-letter rl-pink-serif">G</span>
+    </div>
+
+    <!-- Pink Tape -->
+    <div class="tape-deco" style="transform: rotate(-5deg); margin-top: 35px;"></div>
+  </div>
+
   <div class="hero-header" style="grid-column: 1 / -1; text-align: center; padding: 40px 0 20px; position: relative;">
     <h1 style="font-family: 'Playfair Display', serif; font-size: 80px; color: white; line-height: 0.8; letter-spacing: -2px; text-shadow: 4px 4px 0px rgba(255, 192, 203, 0.5);">OUTFITS</h1>
     <div style="font-family: 'Parisienne', cursive; font-size: 45px; color: var(--hot-pink); position: absolute; top: 80px; left: 50%; transform: translateX(-50%); text-shadow: 2px 2px 0 white;">The Lookbook</div>
