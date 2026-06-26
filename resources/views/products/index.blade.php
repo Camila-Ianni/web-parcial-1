@@ -267,12 +267,10 @@
 }
 
 .clickable-piece:hover {
-  transform: scale(1.08) !important;
   filter: drop-shadow(0 12px 20px rgba(255, 79, 163, 0.4)) brightness(1.05);
 }
 
 .selected-piece {
-  transform: scale(1.08) !important;
   filter: drop-shadow(0 0 10px var(--hot-pink)) drop-shadow(0 0 20px var(--hot-pink)) brightness(1.08) !important;
 }
 
