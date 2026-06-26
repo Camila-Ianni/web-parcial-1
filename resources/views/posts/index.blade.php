@@ -4,7 +4,7 @@
 
 @push('page-styles')
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Permanent+Marker&family=Special+Elite&family=Architects+Daughter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Permanent+Marker&family=Special+Elite&family=Architects+Daughter&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
 
 .blog-page {
   max-width: 1200px;
@@ -39,14 +39,16 @@
   width: 1060px;
 }
 
-/* Cover Styling */
+/* Cover Styling - Dusty Rose/Mean Girls exact pink */
 .book-cover {
   position: absolute;
   inset: 0;
-  background: #e83e8c;
-  border: 10px solid #d82b75;
+  background: #db5686;
   border-radius: 20px;
-  padding: 40px;
+  box-shadow: 
+    inset -5px -5px 15px rgba(0,0,0,0.15), 
+    inset 15px 0 25px rgba(0,0,0,0.25), 
+    0 15px 35px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,102 +56,180 @@
   z-index: 10;
   backface-visibility: hidden;
   cursor: pointer;
-  transition: transform 1s ease, box-shadow 0.3s;
-  box-shadow: inset 0 0 40px rgba(0,0,0,0.2), 0 10px 25px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease, box-shadow 0.3s;
+  overflow: hidden;
+  border-left: 22px solid #b83d6a; /* Spine fold */
 }
 
 .book-cover:hover {
   transform: scale(1.02) rotate(-1deg);
-  box-shadow: inset 0 0 40px rgba(0,0,0,0.2), 0 15px 35px rgba(216, 43, 117, 0.4);
+  box-shadow: 
+    inset -5px -5px 15px rgba(0,0,0,0.15), 
+    inset 15px 0 25px rgba(0,0,0,0.25), 
+    0 20px 45px rgba(219, 86, 134, 0.4);
 }
 
-/* Doodles drawn on cover */
-.doodle-txt {
+/* --- DOODLES (Exact SVG replication overlay) --- */
+.cover-doodles-svg {
   position: absolute;
-  font-family: 'Permanent Marker', cursive;
-  color: #111;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
   opacity: 0.85;
-  font-size: 15px;
-  user-select: none;
 }
-.doodle-txt.d1 { top: 40px; left: 50px; transform: rotate(-8deg); font-size: 18px; }
-.doodle-txt.d2 { top: 50px; right: 50px; transform: rotate(10deg); }
-.doodle-txt.d3 { bottom: 50px; left: 60px; transform: rotate(5deg); }
-.doodle-txt.d4 { bottom: 60px; right: 70px; transform: rotate(-12deg); font-size: 20px; }
-.doodle-txt.d5 { top: 180px; left: 30px; transform: rotate(-15deg); }
 
-/* Ransom letter styling */
-.ransom-row {
+/* --- RANSOM LETTERS IN A CIRCLE --- */
+.ransom-circle-container {
+  position: relative;
+  width: 440px;
+  height: 440px;
   display: flex;
-  gap: 8px;
-  margin: 15px 0;
-}
-.ransom-row.r1 { transform: rotate(-4deg); }
-.ransom-row.r2 { transform: rotate(4deg); }
-
-.ransom-letter {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 65px;
-  height: 75px;
-  font-family: 'Special Elite', monospace;
-  font-size: 52px;
-  font-weight: 900;
-  text-transform: uppercase;
-  box-shadow: 3px 5px 8px rgba(0,0,0,0.4);
-  user-select: none;
+  z-index: 3;
+  margin-top: -30px;
 }
 
-.ransom-letter.dark {
-  background: #111;
-  color: #fff;
-  transform: rotate(-5deg) translateY(5px);
-  border: 1px solid #fff;
-}
-.ransom-letter.light {
-  background: #fff;
-  color: #111;
-  transform: rotate(6deg) translateY(-4px);
-  border: 1px solid #111;
-}
-.ransom-letter.skew1 { transform: rotate(12deg) translateY(2px) scale(1.1); }
-.ransom-letter.skew2 { transform: rotate(-8deg) translateY(-6px) scale(0.95); }
-
-/* Lipstick Mark */
-.kiss-mark {
-  width: 140px;
+/* Kiss mark positioned exactly in the center of the letters circle */
+.kiss-mark-center {
+  position: absolute;
+  width: 130px;
   height: 80px;
-  margin: 20px 0;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path d="M 10 30 Q 30 15 50 25 Q 70 15 90 30 Q 75 42 50 35 Q 25 42 10 30 Z" fill="%23dc3545"/><path d="M 12 33 Q 32 48 50 42 Q 68 48 88 33 Q 73 58 50 50 Q 27 58 12 33 Z" fill="%23c82333"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path d="M 10 32 Q 30 14 50 24 Q 70 14 90 32 Q 75 44 50 37 Q 25 44 10 32 Z" fill="%23d81b40"/><path d="M 12 35 Q 32 50 50 44 Q 68 50 88 35 Q 73 60 50 52 Q 27 60 12 35 Z" fill="%23b8112e"/></svg>');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  filter: drop-shadow(0 2px 4px rgba(220, 53, 69, 0.4));
-  transform: rotate(-5deg);
-  transition: 0.3s;
-}
-.kiss-mark:hover {
-  transform: rotate(5deg) scale(1.08);
+  transform: translate(-5%, -5%) rotate(-8deg);
+  filter: drop-shadow(0 2px 4px rgba(216, 27, 64, 0.35));
+  z-index: 2;
 }
 
-.open-instructions {
-  margin-top: 30px;
-  background: rgba(255,255,255,0.9);
-  padding: 6px 14px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: bold;
+/* Precise positioning of cut paper letters in the circular/arch path */
+.ransom-piece {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+  font-weight: 900;
   text-transform: uppercase;
-  color: var(--hot-pink);
-  border: 1px solid var(--hot-pink);
-  animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+/* Letter 1: B (Top left) */
+.letter-b1 {
+  width: 65px; height: 80px;
+  background: #121212;
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 58px;
+  top: 60px; left: 60px;
+  transform: rotate(-18deg);
+  clip-path: polygon(4% 6%, 96% 2%, 91% 94%, 8% 90%);
+}
+
+/* Letter 2: U (Top mid-left) */
+.letter-u {
+  width: 60px; height: 75px;
+  background: #ffffff;
+  color: #121212;
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  top: 35px; left: 140px;
+  transform: rotate(-8deg);
+  border: 2px solid #121212;
+  clip-path: polygon(10% 2%, 92% 8%, 95% 92%, 3% 97%);
+}
+
+/* Letter 3: R (Top mid-right) */
+.letter-r {
+  width: 62px; height: 78px;
+  background: #121212;
+  color: #ffffff;
+  font-family: 'Special Elite', monospace;
+  font-size: 54px;
+  top: 38px; right: 145px;
+  transform: rotate(6deg);
+  clip-path: polygon(2% 10%, 98% 3%, 89% 95%, 7% 92%);
+}
+
+/* Letter 4: N (Top right) */
+.letter-n {
+  width: 65px; height: 80px;
+  background: #ffffff;
+  color: #121212;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 52px;
+  top: 75px; right: 65px;
+  transform: rotate(20deg);
+  clip-path: polygon(8% 8%, 92% 4%, 97% 91%, 5% 95%);
+}
+
+/* Letter 5: B (Bottom left) */
+.letter-b2 {
+  width: 60px; height: 76px;
+  background: #121212;
+  color: #ffffff;
+  font-family: 'Special Elite', monospace;
+  font-size: 50px;
+  bottom: 80px; left: 75px;
+  transform: rotate(-14deg);
+  clip-path: polygon(5% 12%, 95% 6%, 92% 98%, 10% 88%);
+}
+
+/* Letter 6: O1 (Bottom mid-left) */
+.letter-o1 {
+  width: 60px; height: 75px;
+  background: #ffffff;
+  color: #121212;
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  bottom: 45px; left: 160px;
+  transform: rotate(-4deg);
+  border: 1px solid #121212;
+  clip-path: polygon(6% 4%, 94% 9%, 92% 94%, 4% 92%);
+}
+
+/* Letter 7: O2 (Bottom mid-right) */
+.letter-o2 {
+  width: 62px; height: 78px;
+  background: #ffffff;
+  color: #121212;
+  font-family: 'Inter', sans-serif;
+  font-size: 54px;
+  bottom: 42px; right: 165px;
+  transform: rotate(8deg);
+  clip-path: polygon(3% 10%, 97% 4%, 94% 96%, 6% 92%);
+}
+
+/* Letter 8: K (Bottom right) */
+.letter-k {
+  width: 65px; height: 80px;
+  background: #ffffff;
+  color: #121212;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 54px;
+  bottom: 90px; right: 75px;
+  transform: rotate(22deg);
+  border: 3px double #121212;
+  clip-path: polygon(8% 4%, 96% 12%, 91% 95%, 3% 88%);
+}
+
+.click-to-open-sticker {
+  margin-top: 15px;
+  background: #ffffcc;
+  color: #222;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transform: rotate(-2deg);
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.15);
+  border: 1px dashed #d1c86e;
+  animation: pulse 1.5s infinite;
+  z-index: 4;
 }
 
 /* --- INSIDE BOOK LAYOUT --- */
@@ -166,7 +246,7 @@
 }
 
 .burn-book.open .book-cover {
-  display: none; /* Hide cover when open */
+  display: none;
 }
 .burn-book.open .book-inside {
   display: grid;
@@ -189,7 +269,7 @@
 /* Lined Pages */
 .book-page {
   position: relative;
-  background: #fffdf5; /* Lined notebook paper tone */
+  background: #fffdf5;
   background-image: linear-gradient(rgba(0,0,0,0) 96%, #b4daf9 96%);
   background-size: 100% 28px;
   padding: 40px 35px;
@@ -220,7 +300,6 @@
 .book-page.left::before { right: 30px; }
 .book-page.right::before { left: 30px; }
 
-/* Control buttons inside the book */
 .close-book-btn {
   position: absolute;
   top: 15px;
@@ -241,7 +320,6 @@
   transform: scale(1.05);
 }
 
-/* --- LEFT PAGE: INDEX --- */
 .page-title {
   font-family: 'Permanent Marker', cursive;
   font-size: 28px;
@@ -285,7 +363,6 @@
   border-bottom-color: var(--hot-pink);
 }
 
-/* --- RIGHT PAGE: CONTENT --- */
 .gossip-page-content {
   display: none;
   flex-direction: column;
@@ -301,7 +378,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Polaroid image card */
+/* Polaroid image */
 .scrapbook-polaroid {
   background: white;
   padding: 12px 12px 30px;
@@ -319,7 +396,6 @@
   border: 1px solid #eee;
 }
 
-/* Tapes holding things */
 .scrapbook-tape {
   position: absolute;
   top: -15px;
@@ -327,10 +403,9 @@
   transform: translateX(-50%) rotate(-4deg);
   width: 90px;
   height: 26px;
-  background: rgba(255, 230, 100, 0.4); /* Washi tape simulation */
+  background: rgba(255, 230, 100, 0.4);
   border-left: 2px dashed rgba(0,0,0,0.1);
   border-right: 2px dashed rgba(0,0,0,0.1);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .gossip-author-meta {
@@ -355,11 +430,10 @@
   font-family: 'Caveat', cursive;
   font-size: 23px;
   line-height: 1.25;
-  color: #002fa7; /* Blue pen ink */
+  color: #002fa7;
   word-spacing: 1px;
 }
 
-/* Scrapbook Margin Doodles */
 .margin-decor {
   font-size: 11px;
   color: #888;
@@ -421,35 +495,70 @@
     <div class="book-wrapper">
       <div id="burn-book" class="burn-book closed">
         
-        <!-- COVER PAGE -->
+        <!-- COVER PAGE (Exact Replica of the Burn Book Cover) -->
         <div class="book-cover" onclick="openBook()">
-          <!-- Decorative Doodles -->
-          <span class="doodle-txt d1">STAB ME!</span>
-          <span class="doodle-txt d2">BIG HAIR!</span>
-          <span class="doodle-txt d3">FAT ME...</span>
-          <span class="doodle-txt d4">STAB!</span>
-          <span class="doodle-txt d5">UGLY SKIRT</span>
+          
+          <!-- Exact Doodle replication overlay SVG -->
+          <svg class="cover-doodles-svg" viewBox="0 0 500 680" xmlns="http://www.w3.org/2000/svg">
+            <!-- Top Left Doodle: square box with spiral lines -->
+            <path d="M 50,40 L 90,40 L 90,80 L 50,80 Z" stroke="black" stroke-width="2.5" fill="none"/>
+            <path d="M 60,50 L 80,50 L 80,70 L 60,70 Z" stroke="black" stroke-width="1.8" fill="none"/>
+            <path d="M 50,40 L 90,80 M 90,40 L 50,80" stroke="black" stroke-width="1.5" fill="none"/>
+            <!-- Scribbled maze lines in top-left -->
+            <path d="M 95,45 L 110,45 L 110,85 L 120,85 L 120,40 L 140,40 L 140,75 L 160,75 L 160,35" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M 130,90 L 130,110 L 170,110 L 170,90 L 150,90" stroke="black" stroke-width="2.2" fill="none"/>
+            <!-- "STAB" top right -->
+            <text x="180" y="55" font-family="'Permanent Marker', cursive" font-size="16" fill="black" transform="rotate(3, 180, 55)">STAB</text>
+            
+            <!-- Top Right Doodle: Spiral circle with arrow -->
+            <path d="M 370,55 C 380,45 400,45 405,60 C 410,75 390,90 380,85 C 370,80 375,65 385,68 M 382,75 L 360,95 M 360,95 L 360,85 M 360,95 L 370,95" stroke="black" stroke-width="2.2" fill="none"/>
+            <text x="55" y="115" font-family="'Permanent Marker', cursive" font-size="12" fill="black" transform="rotate(-90, 55, 115)">BIG HAIR</text>
 
-          <!-- Ransom Row 1: BURN -->
-          <div class="ransom-row r1">
-            <span class="ransom-letter dark skew1">B</span>
-            <span class="ransom-letter light skew2">U</span>
-            <span class="ransom-letter dark">R</span>
-            <span class="ransom-letter light skew1">N</span>
+            <!-- Bottom Left Doodle: waves, spirals and scribbles -->
+            <path d="M 40,540 C 50,530 55,550 65,540 C 75,530 80,550 90,540" stroke="black" stroke-width="2" fill="none"/>
+            <path d="M 45,550 C 55,540 60,560 70,550 C 80,540 85,560 95,550" stroke="black" stroke-width="2" fill="none"/>
+            <path d="M 100,560 C 100,540 120,540 120,555 C 120,570 105,570 110,560 L 115,550" stroke="black" stroke-width="2.2" fill="none"/>
+            <!-- Text scribbles bottom-left -->
+            <text x="75" y="585" font-family="'Permanent Marker', cursive" font-size="15" fill="black" transform="rotate(-4, 75, 585)">MEAN</text>
+            <text x="70" y="605" font-family="'Permanent Marker', cursive" font-size="17" fill="black" transform="rotate(-6, 70, 605)">STAB ME</text>
+            <text x="80" y="625" font-family="'Permanent Marker', cursive" font-size="13" fill="black" transform="rotate(3, 80, 625)">STAB</text>
+
+            <!-- Bottom Right Doodle: FAT ME and jagged shapes -->
+            <text x="260" y="590" font-family="'Permanent Marker', cursive" font-size="17" fill="black" transform="rotate(6, 260, 590)">FAT ME</text>
+            <path d="M 255,600 L 320,600" stroke="black" stroke-width="2.5"/>
+            <!-- Jagged waves -->
+            <path d="M 80,635 L 280,635 L 280,645 L 80,645" stroke="black" stroke-width="1.8" fill="none"/>
+            <text x="350" y="635" font-family="'Permanent Marker', cursive" font-size="14" fill="black" transform="rotate(-2, 350, 635)">LUGABLE</text>
+          </svg>
+
+          <!-- RANSOM LETTERS IN A CIRCLE -->
+          <div class="ransom-circle-container">
+            
+            <!-- Lip Kiss exactly in center -->
+            <div class="kiss-mark-center"></div>
+
+            <!-- LETTERS -->
+            <!-- B -->
+            <span class="ransom-piece letter-b1">B</span>
+            <!-- U -->
+            <span class="ransom-piece letter-u">U</span>
+            <!-- R -->
+            <span class="ransom-piece letter-r">R</span>
+            <!-- N -->
+            <span class="ransom-piece letter-n">N</span>
+
+            <!-- B -->
+            <span class="ransom-piece letter-b2">B</span>
+            <!-- O1 -->
+            <span class="ransom-piece letter-o1">O</span>
+            <!-- O2 -->
+            <span class="ransom-piece letter-o2">O</span>
+            <!-- K -->
+            <span class="ransom-piece letter-k">K</span>
+
           </div>
 
-          <!-- Lipstick Kiss SVG -->
-          <div class="kiss-mark"></div>
-
-          <!-- Ransom Row 2: BOOK -->
-          <div class="ransom-row r2">
-            <span class="ransom-letter light skew2">B</span>
-            <span class="ransom-letter dark">O</span>
-            <span class="ransom-letter light skew1">O</span>
-            <span class="ransom-letter dark skew2">K</span>
-          </div>
-
-          <div class="open-instructions">Haz clic para abrir el libro...</div>
+          <div class="click-to-open-sticker">✦ CLICK TO OPEN ✦</div>
         </div>
 
         <!-- INSIDE BOOK PAGES -->
@@ -536,19 +645,16 @@ function closeBook() {
 }
 
 function showSecret(index) {
-  // Hide all gossip contents
   const contents = document.querySelectorAll('.gossip-page-content');
   contents.forEach(content => {
     content.classList.remove('active');
   });
 
-  // Deactivate all list buttons
   const buttons = document.querySelectorAll('.gossip-item-btn');
   buttons.forEach(btn => {
     btn.classList.remove('active');
   });
 
-  // Activate selected content and button
   document.getElementById('secret-content-' + index).classList.add('active');
   document.getElementById('gossip-btn-' + index).classList.add('active');
 }
