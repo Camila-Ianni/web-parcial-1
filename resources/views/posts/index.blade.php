@@ -280,6 +280,8 @@
   flex-direction: column;
   cursor: pointer;
   transition: background-color 0.2s;
+  flex: 1;
+  width: 50%;
 }
 
 .book-page:hover {
@@ -355,6 +357,7 @@
   display: none;
   width: 100%;
   height: 100%;
+  grid-column: 1 / -1;
 }
 .gossip-spread.active {
   display: flex;
@@ -450,8 +453,14 @@
     grid-template-columns: 1fr;
     height: auto;
   }
+  .gossip-spread {
+    flex-direction: column;
+  }
   .book-spine {
     display: none;
+  }
+  .book-page {
+    width: 100% !important;
   }
   .book-page.left {
     border-right: none;
