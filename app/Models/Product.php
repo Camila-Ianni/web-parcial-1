@@ -16,6 +16,7 @@ class Product extends Model
         'stock',
         'image_path',
         'is_active',
+        'garments',
     ];
 
     protected function casts(): array
@@ -23,6 +24,7 @@ class Product extends Model
         return [
             'price' => 'decimal:2',
             'is_active' => 'boolean',
+            'garments' => 'array',
         ];
     }
 

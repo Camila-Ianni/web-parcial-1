@@ -667,61 +667,30 @@
     <div style="font-family: 'Parisienne', cursive; font-size: 45px; color: var(--hot-pink); position: absolute; top: 80px; left: 50%; transform: translateX(-50%); text-shadow: 2px 2px 0 white;">The Lookbook</div>
   </div>
 
-  <div class="outfit-card" onclick="openOutfit('plastics-01', 'Plastics Signature')">
-    <span class="card-sticker sticker-sofetch">So Fetch</span>
-    <img src="{{ asset('img/outfit1.png') }}" alt="Outfit 1">
-    <h3>Plastics Signature</h3>
-    <p>Wednesday Collection</p>
-  </div>
+  @php
+    $stickers = [
+      ['class' => 'sticker-sofetch', 'text' => 'So Fetch'],
+      ['class' => 'sticker-wednesday', 'text' => 'Wednesday'],
+      ['class' => 'sticker-limited', 'text' => 'Limited'],
+      ['class' => 'sticker-classic', 'text' => 'Classic'],
+      ['class' => 'sticker-cute', 'text' => 'Cute!'],
+      ['class' => 'sticker-rich', 'text' => 'Rich'],
+      ['class' => 'sticker-queen', 'text' => 'Queen'],
+      ['class' => 'sticker-omg', 'text' => 'OMG!'],
+    ];
+  @endphp
 
-  <div class="outfit-card" onclick="openOutfit('army-pink', 'Pink Army')">
-    <span class="card-sticker sticker-wednesday">Wednesday</span>
-    <img src="{{ asset('img/outfit2.png') }}" alt="Outfit 2">
-    <h3>Pink Army</h3>
-    <p>Spring 2026 Edition</p>
-  </div>
-
-  <div class="outfit-card" onclick="openOutfit('vintage-pink', 'Vintage Pink')">
-    <span class="card-sticker sticker-limited">Limited</span>
-    <img src="{{ asset('img/outfit3.png') }}" alt="Outfit 3">
-    <h3>Vintage Pink</h3>
-    <p>Limited Release</p>
-  </div>
-
-  <div class="outfit-card" onclick="openOutfit('burn-book-chic', 'Burn Book Chic')">
-    <span class="card-sticker sticker-classic">Classic</span>
-    <img src="{{ asset('img/outfit 4.png') }}" alt="Outfit 4">
-    <h3>Burn Book Chic</h3>
-    <p>Class of 2026</p>
-  </div>
-
-  <div class="outfit-card" onclick="openOutfit('mall-tour', 'Mall Tour')">
-    <span class="card-sticker sticker-cute">Cute!</span>
-    <img src="{{ asset('img/outfit5.png') }}" alt="Outfit 5">
-    <h3>Mall Tour</h3>
-    <p>Casual Set</p>
-  </div>
-
-  <div class="outfit-card" onclick="openOutfit('gretchen-style', 'Gretchen\'s Style')">
-    <span class="card-sticker sticker-rich">Rich</span>
-    <img src="{{ asset('img/outfit6.png') }}" alt="Outfit 6">
-    <h3>Gretchen's Style</h3>
-    <p>Rich & Famous</p>
-  </div>
-
-  <div class="outfit-card" onclick="openOutfit('regina-choice', 'Regina\'s Choice')">
-    <span class="card-sticker sticker-queen">Queen</span>
-    <img src="{{ asset('img/outfit1.png') }}" alt="Outfit 7">
-    <h3>Regina's Choice</h3>
-    <p>Boss Lady</p>
-  </div>
-
-  <div class="outfit-card" onclick="openOutfit('karen-vibes', 'Karen\'s Vibes')">
-    <span class="card-sticker sticker-omg">OMG!</span>
-    <img src="{{ asset('img/outfit2.png') }}" alt="Outfit 8">
-    <h3>Karen's Vibes</h3>
-    <p>Pink Weather</p>
-  </div>
+  @foreach($products as $index => $product)
+    @php
+      $sticker = $stickers[$index % count($stickers)];
+    @endphp
+    <div class="outfit-card" onclick="openOutfit('{{ $product->slug }}', '{{ addslashes($product->name) }}')">
+      <span class="card-sticker {{ $sticker['class'] }}">{{ $sticker['text'] }}</span>
+      <img src="{{ asset($product->image_path) }}" alt="{{ $product->name }}">
+      <h3>{{ $product->name }}</h3>
+      <p>{{ $product->description }}</p>
+    </div>
+  @endforeach
 </div>
 
 <section id="detail-view">
@@ -780,56 +749,26 @@
 <script>
 let currentItem = null;
 
-const outfitsData = {
-  'plastics-01': [
-    { src: "{{ asset('img/shoes1.png') }}", style: 'width:210px; top:490px; left:15%; transform:rotate(-5deg);', title: 'Chic Pink Mules', desc: 'Glossy retro slingbacks with kitten heel.', price: '$75.00' },
-    { src: "{{ asset('img/top1.png') }}", style: 'width:340px; top:100px; left:40.5%; transform:translateX(-50%);', title: 'Soft Pink Top', desc: 'Exclusive ribbed knit design.', price: '$45.00' },
-    { src: "{{ asset('img/pants.png') }}", style: 'width:295px; top:330px; left:59.5%; transform:translateX(-50%);', title: 'Flare Blue Jeans', desc: 'Classic Y2K denim.', price: '$89.90' },
-    { src: "{{ asset('img/bag1.png') }}", style: 'width:200px; top:250px; right:12%; transform:rotate(8deg);', title: 'Rhinestone Bag', desc: 'Sparkly pink crystals.', price: '$65.00' }
-  ],
-  'army-pink': [
-    { src: "{{ asset('img/boots2.png') }}", style: 'width:225px; top:480px; left:52%; transform:translateX(-50%);', title: 'Combat Boots', desc: 'Black leather platform boots.', price: '$110.00' },
-    { src: "{{ asset('img/skirt2.png') }}", style: 'width:300px; top:270px; left:55%; transform:translateX(-50%);', title: 'Pink Ruffle Skirt', desc: 'Layered ruffles.', price: '$55.00' },
-    { src: "{{ asset('img/top2.png') }}", style: 'width:215px; top:110px; left:46.5%; transform:translateX(-50%);', title: 'Gray Tube Top', desc: 'Essential basic.', price: '$25.00' },
-    { src: "{{ asset('img/jacket2.png') }}", style: 'width:260px; top:40px; right:12%; transform:rotate(10deg);', title: 'Biker Bow Jacket', desc: 'Faux leather with pink bow details.', price: '$120.00' }
-  ],
-  'vintage-pink': [
-    { src: "{{ asset('img/shoes1.png') }}", style: 'width:210px; top:485px; left:50%; transform:translateX(-50%);', title: 'Pink Kitten Heels', desc: 'Cute patent leather slingbacks.', price: '$75.00' },
-    { src: "{{ asset('img/jeans3.png') }}", style: 'width:260px; top:310px; left:59.5%; transform:translateX(-50%);', title: 'Low Rise Denim', desc: 'Stretched vintage low waist jeans.', price: '$95.00' },
-    { src: "{{ asset('img/top3.png') }}", style: 'width:260px; top:110px; left:45.5%; transform:translateX(-50%);', title: 'Vintage Logo Tee', desc: 'Printed graphic cotton tee.', price: '$38.00' },
-    { src: "{{ asset('img/necklace3.png') }}", style: 'width:130px; top:45px; left:48%; transform:translateX(-50%);', title: 'Choker Star', desc: 'Rhinestone star choker necklace.', price: '$28.00' }
-  ],
-  'burn-book-chic': [
-    { src: "{{ asset('img/boots3.png') }}", style: 'width:240px; top:460px; left:53.5%; transform:translateX(-50%);', title: 'Knee High Pink Boots', desc: 'Pointy toe glossy high boots.', price: '$145.00' },
-    { src: "{{ asset('img/skirt2.png') }}", style: 'width:300px; top:280px; left:55%; transform:translateX(-50%);', title: 'Plissée Pink Skirt', desc: 'Pleated micro skirt.', price: '$48.00' },
-    { src: "{{ asset('img/cardigan.png') }}", style: 'width:270px; top:100px; left:43.5%; transform:translateX(-50%);', title: 'Preppy Pink Cardigan', desc: 'Cozy cropped knit cardigan.', price: '$68.00' },
-    { src: "{{ asset('img/bag1.png') }}", style: 'width:180px; top:200px; right:14%; transform:rotate(-8deg);', title: 'Gossip Rhinestone Clutch', desc: 'Small sparkling rhinestone bag.', price: '$65.00' }
-  ],
-  'mall-tour': [
-    { src: "{{ asset('img/shoes1.png') }}", style: 'width:200px; top:490px; left:50%; transform:translateX(-50%);', title: 'Platform Slides', desc: 'Fluffy pink sandals.', price: '$45.00' },
-    { src: "{{ asset('img/pants.png') }}", style: 'width:290px; top:300px; left:59.5%; transform:translateX(-50%);', title: 'Pink Sweatpants', desc: 'Comfy cotton jogger pants.', price: '$60.00' },
-    { src: "{{ asset('img/shirt.png') }}", style: 'width:235px; top:110px; left:44.5%; transform:translateX(-50%);', title: 'Baby Doll Tee', desc: 'Fitted cropped doll tee.', price: '$32.00' },
-    { src: "{{ asset('img/bag1.png') }}", style: 'width:190px; top:220px; left:12%; transform:rotate(12deg);', title: 'Pink Shoulder Bag', desc: 'Mini baguette handbag.', price: '$50.00' }
-  ],
-  'gretchen-style': [
-    { src: "{{ asset('img/boots3.png') }}", style: 'width:245px; top:460px; left:53.5%; transform:translateX(-50%);', title: 'Suede Thigh Boots', desc: 'Luxury high boots in baby pink.', price: '$150.00' },
-    { src: "{{ asset('img/skirt2.png') }}", style: 'width:300px; top:280px; left:55%; transform:translateX(-50%);', title: 'Plaid Pleated Skirt', desc: 'Classic academy pleated style.', price: '$59.00' },
-    { src: "{{ asset('img/top1.png') }}", style: 'width:340px; top:110px; left:40.5%; transform:translateX(-50%);', title: 'Regina Knit Corset', desc: 'Off-shoulder structured pink top.', price: '$55.00' },
-    { src: "{{ asset('img/jacket2.png') }}", style: 'width:260px; top:40px; right:12%; transform:rotate(10deg);', title: 'Chic Biker Jacket', desc: 'Pink faux leather biker jacket.', price: '$120.00' }
-  ],
-  'regina-choice': [
-    { src: "{{ asset('img/boots3.png') }}", style: 'width:245px; top:460px; left:53.5%; transform:translateX(-50%);', title: 'Leather Platform Boots', desc: 'High platform shiny pink boots.', price: '$130.00' },
-    { src: "{{ asset('img/jeans3.png') }}", style: 'width:265px; top:315px; left:59.5%; transform:translateX(-50%);', title: 'Glitter Pocket Jeans', desc: 'Denim pants with rhinestone back pockets.', price: '$110.00' },
-    { src: "{{ asset('img/top3.png') }}", style: 'width:260px; top:120px; left:45.5%; transform:translateX(-50%);', title: 'Queen Tiara Tee', desc: 'Crown graphic fitted tee.', price: '$40.00' },
-    { src: "{{ asset('img/bag1.png') }}", style: 'width:190px; top:200px; left:10%; transform:rotate(-15deg);', title: 'Metallic Bow Bag', desc: 'Glamorous silver-pink handbag.', price: '$85.00' }
-  ],
-  'karen-vibes': [
-    { src: "{{ asset('img/boots2.png') }}", style: 'width:220px; top:480px; left:52%; transform:translateX(-50%);', title: 'Karen Platform Booties', desc: 'Comfy chunky suede booties.', price: '$95.00' },
-    { src: "{{ asset('img/pants.png') }}", style: 'width:290px; top:310px; left:59.5%; transform:translateX(-50%);', title: 'Pink Satin Pants', desc: 'Smooth flowing wide-leg trousers.', price: '$80.00' },
-    { src: "{{ asset('img/cardigan.png') }}", style: 'width:270px; top:100px; left:43.5%; transform:translateX(-50%);', title: 'Fluffy Pink Knit', desc: 'Super soft oversized crop knit.', price: '$72.00' },
-    { src: "{{ asset('img/necklace3.png') }}", style: 'width:130px; top:45px; left:48%; transform:translateX(-50%);', title: 'Crystal Heart Pendant', desc: 'Large silver heart necklace.', price: '$35.00' }
-  ]
-};
+@php
+  $formattedOutfits = [];
+  foreach ($products as $product) {
+      $garments = [];
+      if (is_array($product->garments)) {
+          foreach ($product->garments as $garment) {
+              $garments[] = [
+                  'src' => asset($garment['src'] ?? ''),
+                  'style' => $garment['style'] ?? '',
+                  'title' => $garment['title'] ?? '',
+                  'desc' => $garment['desc'] ?? '',
+                  'price' => $garment['price'] ?? '',
+              ];
+          }
+      }
+      $formattedOutfits[$product->slug] = $garments;
+  }
+@endphp
+
+const outfitsData = {!! json_encode($formattedOutfits) !!};
 
 function slugify(text) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
