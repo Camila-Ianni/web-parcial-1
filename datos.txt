@@ -1,0 +1,18 @@
+Escuela de Arte Multimedial Da Vinci
+CARRERA: Analisis de sistemas
+MATERIA: Portales y Comercio Electrónico
+TRABAJO PRÁCTICO: Segundo Parcial
+PROFESOR: Carlos Ferrer
+ALUMNO/S:
+Ianni, Camila Carolina
+CUATRIMESTRE: 3er
+AÑO: 2026
+TURNO: tarde
+COMISIÓN: -
+
+Pasos para correr el proyecto:
+1. composer install
+2. cp .env.example .env (configurar base de datos en .env)
+3. php artisan key:generate
+4. php artisan migrate:fresh --seed
+5. php artisan serve
