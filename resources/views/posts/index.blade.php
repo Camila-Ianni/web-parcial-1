@@ -264,6 +264,7 @@
   border-left: 1px solid rgba(0,0,0,0.1);
   border-right: 1px solid rgba(0,0,0,0.1);
   z-index: 5;
+  pointer-events: none;
 }
 
 /* Lined Pages */
@@ -277,6 +278,12 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.book-page:hover {
+  background-color: #fffaef;
 }
 
 .book-page.left {
@@ -300,6 +307,29 @@
 .book-page.left::before { right: 30px; }
 .book-page.right::before { left: 30px; }
 
+/* Page turn floating indicators */
+.page-flip-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 79, 163, 0.9);
+  color: white;
+  font-family: 'Architects Daughter', cursive;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.left-indicator { left: 20px; transform: translateY(-50%) translateX(-10px); }
+.right-indicator { right: 20px; transform: translateY(-50%) translateX(10px); }
+
+.book-page.left:hover .left-indicator { opacity: 0.9; transform: translateY(-50%) translateX(0); }
+.book-page.right:hover .right-indicator { opacity: 0.9; transform: translateY(-50%) translateX(0); }
+
 .close-book-btn {
   position: absolute;
   top: 15px;
@@ -320,6 +350,16 @@
   transform: scale(1.05);
 }
 
+/* Active Gossip Spread container */
+.gossip-spread {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+.gossip-spread.active {
+  display: flex;
+}
+
 .page-title {
   font-family: 'Permanent Marker', cursive;
   font-size: 28px;
@@ -328,54 +368,6 @@
   text-transform: uppercase;
   transform: rotate(-1.5deg);
   text-align: center;
-}
-
-.gossip-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.gossip-item-btn {
-  background: none;
-  border: none;
-  width: 100%;
-  text-align: left;
-  font-family: 'Architects Daughter', cursive;
-  font-size: 16px;
-  font-weight: bold;
-  color: #222;
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 1px dashed rgba(255, 79, 163, 0.2);
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.gossip-item-btn:hover,
-.gossip-item-btn.active {
-  color: var(--hot-pink);
-  background: rgba(255, 79, 163, 0.05);
-  transform: translateX(4px);
-  border-bottom-color: var(--hot-pink);
-}
-
-.gossip-page-content {
-  display: none;
-  flex-direction: column;
-  height: 100%;
-  animation: pageFadeIn 0.4s ease forwards;
-}
-.gossip-page-content.active {
-  display: flex;
-}
-
-@keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Polaroid image */
@@ -504,10 +496,8 @@
             <path d="M 50,40 L 90,40 L 90,80 L 50,80 Z" stroke="black" stroke-width="2.5" fill="none"/>
             <path d="M 60,50 L 80,50 L 80,70 L 60,70 Z" stroke="black" stroke-width="1.8" fill="none"/>
             <path d="M 50,40 L 90,80 M 90,40 L 50,80" stroke="black" stroke-width="1.5" fill="none"/>
-            <!-- Scribbled maze lines in top-left -->
             <path d="M 95,45 L 110,45 L 110,85 L 120,85 L 120,40 L 140,40 L 140,75 L 160,75 L 160,35" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M 130,90 L 130,110 L 170,110 L 170,90 L 150,90" stroke="black" stroke-width="2.2" fill="none"/>
-            <!-- "STAB" top right -->
             <text x="180" y="55" font-family="'Permanent Marker', cursive" font-size="16" fill="black" transform="rotate(3, 180, 55)">STAB</text>
             
             <!-- Top Right Doodle: Spiral circle with arrow -->
@@ -518,7 +508,6 @@
             <path d="M 40,540 C 50,530 55,550 65,540 C 75,530 80,550 90,540" stroke="black" stroke-width="2" fill="none"/>
             <path d="M 45,550 C 55,540 60,560 70,550 C 80,540 85,560 95,550" stroke="black" stroke-width="2" fill="none"/>
             <path d="M 100,560 C 100,540 120,540 120,555 C 120,570 105,570 110,560 L 115,550" stroke="black" stroke-width="2.2" fill="none"/>
-            <!-- Text scribbles bottom-left -->
             <text x="75" y="585" font-family="'Permanent Marker', cursive" font-size="15" fill="black" transform="rotate(-4, 75, 585)">MEAN</text>
             <text x="70" y="605" font-family="'Permanent Marker', cursive" font-size="17" fill="black" transform="rotate(-6, 70, 605)">STAB ME</text>
             <text x="80" y="625" font-family="'Permanent Marker', cursive" font-size="13" fill="black" transform="rotate(3, 80, 625)">STAB</text>
@@ -526,36 +515,21 @@
             <!-- Bottom Right Doodle: FAT ME and jagged shapes -->
             <text x="260" y="590" font-family="'Permanent Marker', cursive" font-size="17" fill="black" transform="rotate(6, 260, 590)">FAT ME</text>
             <path d="M 255,600 L 320,600" stroke="black" stroke-width="2.5"/>
-            <!-- Jagged waves -->
             <path d="M 80,635 L 280,635 L 280,645 L 80,645" stroke="black" stroke-width="1.8" fill="none"/>
             <text x="350" y="635" font-family="'Permanent Marker', cursive" font-size="14" fill="black" transform="rotate(-2, 350, 635)">LUGABLE</text>
           </svg>
 
           <!-- RANSOM LETTERS IN A CIRCLE -->
           <div class="ransom-circle-container">
-            
-            <!-- Lip Kiss exactly in center -->
             <div class="kiss-mark-center"></div>
-
-            <!-- LETTERS -->
-            <!-- B -->
             <span class="ransom-piece letter-b1">B</span>
-            <!-- U -->
             <span class="ransom-piece letter-u">U</span>
-            <!-- R -->
             <span class="ransom-piece letter-r">R</span>
-            <!-- N -->
             <span class="ransom-piece letter-n">N</span>
-
-            <!-- B -->
             <span class="ransom-piece letter-b2">B</span>
-            <!-- O1 -->
             <span class="ransom-piece letter-o1">O</span>
-            <!-- O2 -->
             <span class="ransom-piece letter-o2">O</span>
-            <!-- K -->
             <span class="ransom-piece letter-k">K</span>
-
           </div>
 
           <div class="click-to-open-sticker">✦ CLICK TO OPEN ✦</div>
@@ -563,30 +537,18 @@
 
         <!-- INSIDE BOOK PAGES -->
         <div class="book-inside">
-          <button class="close-book-btn" onclick="closeBook()">✕ Cerrar Libro</button>
+          <button class="close-book-btn" onclick="event.stopPropagation(); closeBook()">✕ Cerrar Libro</button>
           
-          <!-- Central Spine -->
           <div class="book-spine"></div>
 
-          <!-- Left Page: Index of Secrets -->
-          <div class="book-page left">
-            <h3 class="page-title">Índice de Secretos</h3>
-            <ul class="gossip-list">
-              @foreach($posts as $index => $post)
-                <li>
-                  <button id="gossip-btn-{{ $index }}" class="gossip-item-btn {{ $index === 0 ? 'active' : '' }}" onclick="showSecret({{ $index }})">
-                    💋 {{ $post->title }}
-                  </button>
-                </li>
-              @endforeach
-            </ul>
-            <div class="margin-decor">★ Regina's Rules Apply ★</div>
-          </div>
-
-          <!-- Right Page: Secret Content -->
-          <div class="book-page right">
-            @foreach($posts as $index => $post)
-              <div id="secret-content-{{ $index }}" class="gossip-page-content {{ $index === 0 ? 'active' : '' }}">
+          @foreach($posts as $index => $post)
+            <div id="secret-spread-{{ $index }}" class="gossip-spread {{ $index === 0 ? 'active' : '' }}" style="display: {{ $index === 0 ? 'flex' : 'none' }}; width: 100%; height: 100%;">
+              
+              <!-- Left Page: Polaroid, Title & Info. Clicking goes to Previous post -->
+              <div class="book-page left" onclick="prevSecret()">
+                <div class="page-flip-indicator left-indicator">◀ Anterior</div>
+                
+                <h3 class="page-title">Regina's Gossip</h3>
                 
                 <!-- Polaroid Photo Card -->
                 <div class="scrapbook-polaroid">
@@ -595,12 +557,19 @@
                 </div>
 
                 <!-- Editorial Meta -->
-                <div class="gossip-author-meta">
+                <div class="gossip-author-meta" style="text-align: center; margin-top: 10px;">
                   Por: {{ $post->author_name }} | {{ $post->category }}
                 </div>
+                
+                <div class="margin-decor">★ Toca aquí para página anterior ★</div>
+              </div>
+
+              <!-- Right Page: Cursive Body Text. Clicking goes to Next post -->
+              <div class="book-page right" onclick="nextSecret()">
+                <div class="page-flip-indicator right-indicator">Siguiente ▶</div>
 
                 <!-- Headline -->
-                <h2 class="gossip-headline">
+                <h2 class="gossip-headline" style="text-align: center; margin-top: 20px;">
                   {{ $post->title }}
                 </h2>
 
@@ -610,12 +579,13 @@
                 </div>
 
                 <!-- Footer Decor -->
-                <div class="margin-decor" style="margin-top: 30px;">
+                <div class="margin-decor" style="margin-top: auto; padding-top: 25px;">
                   Publicado: {{ $post->published_at?->format('d/m/Y') ?? 'Reciente' }}
                 </div>
               </div>
-            @endforeach
-          </div>
+
+            </div>
+          @endforeach
 
         </div>
 
@@ -628,6 +598,9 @@
 
 @push('page-scripts')
 <script>
+let currentGossipIndex = 0;
+const totalGossips = {{ $posts->count() }};
+
 function openBook() {
   const book = document.getElementById('burn-book');
   if (book.classList.contains('closed')) {
@@ -644,19 +617,30 @@ function closeBook() {
   }
 }
 
-function showSecret(index) {
-  const contents = document.querySelectorAll('.gossip-page-content');
-  contents.forEach(content => {
-    content.classList.remove('active');
+function showSecretSpread(index) {
+  // Hide all spreads
+  const spreads = document.querySelectorAll('.gossip-spread');
+  spreads.forEach((spread, i) => {
+    spread.classList.remove('active');
+    spread.style.display = 'none';
   });
 
-  const buttons = document.querySelectorAll('.gossip-item-btn');
-  buttons.forEach(btn => {
-    btn.classList.remove('active');
-  });
+  // Show active spread
+  const activeSpread = document.getElementById('secret-spread-' + index);
+  if (activeSpread) {
+    activeSpread.classList.add('active');
+    activeSpread.style.display = 'flex';
+  }
+}
 
-  document.getElementById('secret-content-' + index).classList.add('active');
-  document.getElementById('gossip-btn-' + index).classList.add('active');
+function nextSecret() {
+  currentGossipIndex = (currentGossipIndex + 1) % totalGossips;
+  showSecretSpread(currentGossipIndex);
+}
+
+function prevSecret() {
+  currentGossipIndex = (currentGossipIndex - 1 + totalGossips) % totalGossips;
+  showSecretSpread(currentGossipIndex);
 }
 </script>
 @endpush
