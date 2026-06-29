@@ -15,4 +15,6 @@ Pasos para correr el proyecto:
 2. cp .env.example .env (configurar base de datos en .env)
 3. php artisan key:generate
 4. php artisan migrate:fresh --seed
-5. php artisan serve
+5. npm install
+6. npm run build
+7. php artisan serve

@@ -25,7 +25,9 @@ Usuario con un servicio/compra ya contratado por Seeder:
 3. Configurar la base de datos en `.env` (por defecto se incluye soporte SQLite portable)
 4. `php artisan key:generate`
 5. `php artisan migrate:fresh --seed`
-6. `php artisan serve`
+6. `npm install`
+7. `npm run build`
+8. `php artisan serve`
 
 ## Características Principales (Segundo Parcial)
 
