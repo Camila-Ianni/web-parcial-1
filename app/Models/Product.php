@@ -5,6 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Product
+ *
+ * Represents an outfit product in the system.
+ *
+ * @package App\Models
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $description
+ * @property string $category
+ * @property float $price
+ * @property int $stock
+ * @property string|null $image_path
+ * @property bool $is_active
+ * @property array|null $garments
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Product extends Model
 {
     protected $fillable = [
@@ -28,11 +47,22 @@ class Product extends Model
         ];
     }
 
+    /**
+     * Scope a query to only include available products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeAvailable(Builder $query): Builder
     {
         return $query->where('is_active', true)->where('stock', '>', 0);
     }
 
+    /**
+     * Get the product price formatted as currency.
+     *
+     * @return string
+     */
     public function formattedPrice(): string
     {
         return '$' . number_format((float) $this->price, 2, '.', ',');

@@ -10,8 +10,20 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
+/**
+ * Class PostManagementController
+ *
+ * Handles admin panel CRUD operations for blog posts.
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class PostManagementController extends Controller
 {
+    /**
+     * Display a listing of the blog posts in the admin panel.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         return view('admin.posts.index', [
@@ -19,11 +31,22 @@ class PostManagementController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for creating a new blog post.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create(): View
     {
         return view('admin.posts.create');
     }
 
+    /**
+     * Store a newly created blog post in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validatePost($request);
@@ -33,6 +56,12 @@ class PostManagementController extends Controller
         return redirect()->route('admin.posts.index')->with('status', 'Post creado correctamente.');
     }
 
+    /**
+     * Show the form for editing the specified blog post.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\View\View
+     */
     public function edit(Post $post): View
     {
         return view('admin.posts.edit', [
@@ -40,6 +69,13 @@ class PostManagementController extends Controller
         ]);
     }
 
+    /**
+     * Update the specified blog post in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Post $post): RedirectResponse
     {
         $data = $this->validatePost($request, $post);
@@ -49,6 +85,12 @@ class PostManagementController extends Controller
         return redirect()->route('admin.posts.index')->with('status', 'Post actualizado correctamente.');
     }
 
+    /**
+     * Remove the specified blog post from storage.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Post $post): RedirectResponse
     {
         $post->delete();
@@ -56,6 +98,13 @@ class PostManagementController extends Controller
         return redirect()->route('admin.posts.index')->with('status', 'Post eliminado correctamente.');
     }
 
+    /**
+     * Validate the request data for a blog post.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Post|null  $post
+     * @return array
+     */
     private function validatePost(Request $request, ?Post $post = null): array
     {
         $isCreate = ($post === null);

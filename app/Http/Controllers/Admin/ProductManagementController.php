@@ -10,8 +10,20 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
+/**
+ * Class ProductManagementController
+ *
+ * Handles admin panel CRUD operations for products / outfits.
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class ProductManagementController extends Controller
 {
+    /**
+     * Display a listing of products in the admin panel.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         return view('admin.products.index', [
@@ -19,11 +31,22 @@ class ProductManagementController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for creating a new product.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create(): View
     {
         return view('admin.products.create');
     }
 
+    /**
+     * Store a newly created product in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validateProduct($request);
@@ -33,6 +56,12 @@ class ProductManagementController extends Controller
         return redirect()->route('admin.products.index')->with('status', 'Outfit creado correctamente.');
     }
 
+    /**
+     * Show the form for editing the specified product.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\View\View
+     */
     public function edit(Product $product): View
     {
         return view('admin.products.edit', [
@@ -40,6 +69,13 @@ class ProductManagementController extends Controller
         ]);
     }
 
+    /**
+     * Update the specified product in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Product $product): RedirectResponse
     {
         $data = $this->validateProduct($request, $product);
@@ -49,6 +85,12 @@ class ProductManagementController extends Controller
         return redirect()->route('admin.products.index')->with('status', 'Outfit actualizado correctamente.');
     }
 
+    /**
+     * Remove the specified product from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
@@ -56,6 +98,13 @@ class ProductManagementController extends Controller
         return redirect()->route('admin.products.index')->with('status', 'Outfit eliminado correctamente.');
     }
 
+    /**
+     * Validate the request data for a product.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product|null  $product
+     * @return array
+     */
     private function validateProduct(Request $request, ?Product $product = null): array
     {
         $data = $request->validate([

@@ -8,8 +8,20 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\View\View;
 
+/**
+ * Class DashboardController
+ *
+ * Handles rendering the administrative dashboard home screen.
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class DashboardController extends Controller
 {
+    /**
+     * Handle the incoming request to view the admin dashboard.
+     *
+     * @return \Illuminate\View\View
+     */
     public function __invoke(): View
     {
         return view('admin.dashboard', [
