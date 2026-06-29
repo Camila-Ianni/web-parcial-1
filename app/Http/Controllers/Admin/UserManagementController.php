@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 /**
@@ -39,5 +40,23 @@ class UserManagementController extends Controller
         return view('admin.users.show', [
             'user' => $user,
         ]);
+    }
+
+    /**
+     * Toggle the administrator role for the specified user.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function toggleRole(User $user): RedirectResponse
+    {
+        if (auth()->id() === $user->id) {
+            return back()->withErrors(['role' => 'No puedes cambiar tu propio rol de administrador.']);
+        }
+
+        $user->is_admin = !$user->is_admin;
+        $user->save();
+
+        return redirect()->route('admin.users.show', $user)->with('status', 'Rol de usuario actualizado correctamente.');
     }
 }

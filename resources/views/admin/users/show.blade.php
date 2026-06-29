@@ -15,6 +15,20 @@
   <a class="btn" href="{{ route('admin.users.index') }}">← Volver a la lista</a>
 </div>
 
+@if (session('status'))
+  <div style="background-color: #e6fffa; color: #00875a; padding: 12px 18px; border-radius: 8px; border: 1px solid #ffd3e8; margin-top: 15px; font-weight: bold; font-size: 14px; text-align: left; display: flex; align-items: center; gap: 8px;">
+    <span>✨</span> {{ session('status') }}
+  </div>
+@endif
+
+@if ($errors->any())
+  <div style="background-color: #fff5f5; color: #e53e3e; padding: 12px 18px; border-radius: 8px; border: 1px solid #ffd3e8; margin-top: 15px; font-weight: bold; font-size: 14px; text-align: left;">
+    @foreach ($errors->all() as $error)
+      <p style="margin: 0; display: flex; align-items: center; gap: 8px;"><span>❌</span> {{ $error }}</p>
+    @endforeach
+  </div>
+@endif
+
 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 28px; margin-top: 15px; align-items: start;">
   
   <!-- Left Side: Profile Polaroid Card -->
@@ -50,6 +64,20 @@
           <span style="color: #888; font-weight: bold;">Miembro desde:</span>
           <span style="color: #555;">{{ $user->created_at->format('d/m/Y') }}</span>
         </div>
+      </div>
+      
+      <div style="margin-top: 20px; border-top: 1px solid var(--soft-pink); padding-top: 15px; text-align: center;">
+        <form action="{{ route('admin.users.toggle-role', $user) }}" method="POST" onsubmit="return confirm('¿Estás segura de que deseas cambiar el rol de este usuario?');">
+          @csrf
+          @method('PATCH')
+          <button type="submit" class="btn" style="width: 100%; justify-content: center; background-color: var(--dark-magenta); color: white; border-color: var(--dark-magenta); font-weight: bold; cursor: pointer;">
+            @if($user->is_admin)
+              💅 Cambiar a Miembro Común
+            @else
+              👑 Hacer Administradora
+            @endif
+          </button>
+        </form>
       </div>
     </section>
   </div>

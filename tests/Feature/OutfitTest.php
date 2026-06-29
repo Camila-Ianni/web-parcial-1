@@ -164,4 +164,63 @@ class OutfitTest extends TestCase
 
         $response->assertRedirect(route('home'));
     }
+
+    public function test_user_registers_as_non_admin_by_default(): void
+    {
+        $postData = [
+            'name' => 'Regina George',
+            'email' => 'regina@plastics.com',
+            'password' => 'fetch123',
+            'password_confirmation' => 'fetch123',
+        ];
+
+        $response = $this->post(route('register.attempt'), $postData);
+
+        $response->assertRedirect(route('home'));
+
+        $user = User::query()->where('email', 'regina@plastics.com')->first();
+        $this->assertNotNull($user);
+        $this->assertFalse($user->is_admin);
+    }
+
+    public function test_admin_can_toggle_another_user_role(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+        $targetUser = User::factory()->create(['is_admin' => false]);
+
+        $response = $this->actingAs($admin)
+            ->patch(route('admin.users.toggle-role', $targetUser));
+
+        $response->assertRedirect(route('admin.users.show', $targetUser));
+        
+        $targetUser->refresh();
+        $this->assertTrue($targetUser->is_admin);
+    }
+
+    public function test_admin_cannot_toggle_own_role(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+
+        $response = $this->actingAs($admin)
+            ->patch(route('admin.users.toggle-role', $admin));
+
+        $response->assertSessionHasErrors(['role']);
+        
+        $admin->refresh();
+        $this->assertTrue($admin->is_admin);
+    }
+
+    public function test_non_admin_cannot_toggle_user_role(): void
+    {
+        $user = User::factory()->create(['is_admin' => false]);
+        $targetUser = User::factory()->create(['is_admin' => false]);
+
+        $response = $this->actingAs($user)
+            ->patch(route('admin.users.toggle-role', $targetUser));
+
+        $response->assertStatus(403);
+        
+        $targetUser->refresh();
+        $this->assertFalse($targetUser->is_admin);
+    }
 }

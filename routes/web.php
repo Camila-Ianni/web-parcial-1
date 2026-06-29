@@ -39,4 +39,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 	Route::resource('products', ProductManagementController::class)->except(['show']);
 	Route::get('users', [UserManagementController::class, 'index'])->name('users.index');
 	Route::get('users/{user}', [UserManagementController::class, 'show'])->name('users.show');
+	Route::patch('users/{user}/toggle-role', [UserManagementController::class, 'toggleRole'])->name('users.toggle-role');
 });
