@@ -13,10 +13,10 @@
     </div>
   </div>
 
-  <!-- Grid of Metrics and Controls -->
+  
   <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
     
-    <!-- Blog Section Card -->
+    
     <section class="panel" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 6px solid var(--bubblegum);">
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -39,7 +39,7 @@
       </div>
     </section>
 
-    <!-- Outfits Section Card -->
+    
     <section class="panel" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 6px solid var(--hot-pink);">
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -62,7 +62,7 @@
       </div>
     </section>
 
-    <!-- Users Section Card -->
+    
     <section class="panel" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 6px solid var(--dark-magenta);">
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -85,9 +85,9 @@
     </section>
   </div>
 
-  <!-- Y2K Interactive elements -->
+  
   <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 24px;">
-    <!-- Rules Box -->
+    
     <section class="panel">
       <h2 style="font-size: 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
         <span>💅</span> Reglas del Burn Book de la Moda (Wednesday Rules)
@@ -108,7 +108,7 @@
       </ul>
     </section>
 
-    <!-- Side Sticker box -->
+    
     <section class="panel" style="background: radial-gradient(circle, #fff7fa 0%, #ffeaf4 100%); text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
       <div style="font-size: 48px; margin-bottom: 8px; filter: drop-shadow(2px 4px 6px rgba(255, 79, 163, 0.25)); transform: rotate(-5deg);">💖</div>
       <p style="font-family: 'Parisienne', cursive; font-size: 32px; color: var(--hot-pink); line-height: 1.1;">You're Like, Really Pretty.</p>

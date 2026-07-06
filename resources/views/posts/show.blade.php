@@ -32,7 +32,7 @@
   transform: translateX(-3px);
 }
 
-/* Single Open Page Styling */
+
 .scrapbook-page {
   position: relative;
   background: #fffdf5;
@@ -46,7 +46,7 @@
   flex-direction: column;
 }
 
-/* Ruled margin line */
+
 .scrapbook-page::before {
   content: '';
   position: absolute;
@@ -57,7 +57,7 @@
   z-index: 2;
 }
 
-/* Polaroid image */
+
 .scrapbook-polaroid {
   background: white;
   padding: 12px 12px 30px;
@@ -111,7 +111,7 @@
   font-family: 'Caveat', cursive;
   font-size: 26px;
   line-height: 1.3;
-  color: #002fa7; /* Blue pen ink */
+  color: #002fa7; 
   word-spacing: 1px;
   margin-top: 10px;
 }
@@ -137,28 +137,28 @@
 
   <article class="scrapbook-page">
     
-    <!-- Polaroid Image Card -->
+    
     <div class="scrapbook-polaroid">
       <span class="scrapbook-tape"></span>
       <img src="{{ asset($post->image_path) }}" alt="{{ $post->title }}">
     </div>
 
-    <!-- Gossip Meta -->
+    
     <div class="gossip-meta">
-      Secret por: {{ $post->author_name }} | {{ $post->category }}
+      Secret por: {{ $post->author_name }} | {{ $post->category->name }}
     </div>
 
-    <!-- Title -->
+    
     <h1 class="gossip-title">
       {{ $post->title }}
     </h1>
 
-    <!-- Handwritten ink body -->
+    
     <div class="gossip-body">
       {!! nl2br(e($post->content)) !!}
     </div>
 
-    <!-- Page Footer Decor -->
+    
     <div class="margin-decor">
       Publicado: {{ $post->published_at?->format('d/m/Y') ?? 'Reciente' }}
     </div>

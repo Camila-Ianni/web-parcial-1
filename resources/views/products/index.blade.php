@@ -4,7 +4,7 @@
 
 @push('page-styles')
 <style>
-/* --- GALERIA ACTUALIZADA (4 por fila) --- */
+
 #gallery-view {
   padding: 60px 40px;
   display: grid;
@@ -77,7 +77,7 @@
   font-weight: bold;
 }
 
-/* Y2K Card Stickers */
+
 .card-sticker {
   position: absolute;
   font-family: 'Permanent Marker', cursive;
@@ -164,7 +164,7 @@
   box-shadow: 3px 6px 12px rgba(0,0,0,0.25);
 }
 
-/* --- DECORACIONES DE SCRAPBOOK EN LOS COSTADOS --- */
+
 .scrapbook-deco {
   position: absolute;
   top: 150px;
@@ -212,7 +212,7 @@
   stroke-dasharray: 4 2;
 }
 
-/* --- RANSOM LETTERS / RECORTES DE REVISTA --- */
+
 .ransom-word {
   display: inline-flex;
   gap: 4px;
@@ -270,7 +270,7 @@
   clip-path: polygon(5% 12%, 95% 6%, 92% 98%, 10% 88%);
 }
 
-/* --- NEW DETALLE GRID LAYOUT --- */
+
 #detail-view {
   display: none;
   max-width: 1200px;
@@ -323,7 +323,7 @@
   align-items: start;
 }
 
-/* Left Column: Canvas Container */
+
 .canvas-container {
   position: relative;
   background: radial-gradient(circle, #ffe3ec 0%, #ffc5d9 100%);
@@ -363,7 +363,7 @@
   opacity: 0.85;
 }
 
-/* Dressing Garments */
+
 .piece {
   position: absolute;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -383,7 +383,7 @@
   filter: drop-shadow(0 0 10px var(--hot-pink)) drop-shadow(0 0 20px var(--hot-pink)) brightness(1.08) !important;
 }
 
-/* Right Column: Wardrobe Panel */
+
 .wardrobe-panel {
   background: white;
   border: 4px solid var(--hot-pink);
@@ -465,7 +465,7 @@
   opacity: 0.3;
 }
 
-/* Active detail state: Price Tag Style */
+
 .price-tag-container {
   display: flex;
   flex-direction: column;
@@ -582,7 +582,7 @@
   box-shadow: 0 6px 15px rgba(255, 79, 163, 0.4);
 }
 
-/* Responsivo para pantallas mas chicas */
+
 @media (max-width: 1000px) {
   #gallery-view { grid-template-columns: repeat(2, 1fr); }
 }
@@ -606,9 +606,9 @@
 
 @section('content')
 <div id="gallery-view">
-  <!-- Left Margin Scrapbook Deco -->
+  
   <div class="scrapbook-deco left-deco">
-    <!-- FETCH -->
+    
     <div class="ransom-word" style="transform: rotate(-8deg);">
       <span class="ransom-letter rl-black-serif">F</span>
       <span class="ransom-letter rl-white-sans">E</span>
@@ -617,10 +617,10 @@
       <span class="ransom-letter rl-pink-serif">H</span>
     </div>
     
-    <!-- Kiss Mark -->
+    
     <div class="kiss-deco" style="transform: rotate(15deg); margin-top: 30px;"></div>
     
-    <!-- QUEEN -->
+    
     <div class="ransom-word" style="transform: rotate(5deg); margin-top: 40px;">
       <span class="ransom-letter rl-white-marker">Q</span>
       <span class="ransom-letter rl-black-serif">U</span>
@@ -629,15 +629,15 @@
       <span class="ransom-letter rl-pink-serif">N</span>
     </div>
 
-    <!-- Heart doodle -->
+    
     <svg class="heart-doodle" viewBox="0 0 100 100" style="width: 70px; margin-top: 30px; transform: rotate(-10deg);">
       <path d="M 50,30 C 50,10 20,10 20,40 C 20,70 50,90 50,90 C 50,90 80,70 80,40 C 80,10 50,10 50,30 Z" fill="none" stroke="var(--hot-pink)" stroke-width="4" stroke-linecap="round" />
     </svg>
   </div>
 
-  <!-- Right Margin Scrapbook Deco -->
+  
   <div class="scrapbook-deco right-deco">
-    <!-- KISS -->
+    
     <div class="ransom-word" style="transform: rotate(6deg);">
       <span class="ransom-letter rl-white-marker">K</span>
       <span class="ransom-letter rl-black-serif">I</span>
@@ -645,20 +645,20 @@
       <span class="ransom-letter rl-pink-serif">S</span>
     </div>
 
-    <!-- Sparkle Stars -->
+    
     <svg class="stars-doodle" viewBox="0 0 100 100" style="width: 60px; margin-top: 20px; transform: rotate(12deg);">
       <path d="M 50,10 L 53,38 L 80,38 L 58,55 L 66,82 L 50,65 L 34,82 L 42,55 L 20,38 L 47,38 Z" fill="none" stroke="var(--hot-pink)" stroke-width="3" />
       <path d="M 20,70 L 22,78 L 30,78 L 24,83 L 26,90 L 20,86 L 14,90 L 16,83 L 10,78 L 18,78 Z" fill="none" stroke="var(--bubblegum)" stroke-width="2" />
     </svg>
 
-    <!-- OMG -->
+    
     <div class="ransom-word" style="transform: rotate(-12deg); margin-top: 40px;">
       <span class="ransom-letter rl-black-mono">O</span>
       <span class="ransom-letter rl-white-sans">M</span>
       <span class="ransom-letter rl-pink-serif">G</span>
     </div>
 
-    <!-- Pink Tape -->
+    
     <div class="tape-deco" style="transform: rotate(-5deg); margin-top: 35px;"></div>
   </div>
 
@@ -700,15 +700,15 @@
   </div>
 
   <div class="detail-grid">
-    <!-- Left Column: The Dresser / Interactive Mannequin Canvas -->
+    
     <div class="canvas-container">
       <div class="canvas-mirror-glow"></div>
       <div class="interactive-canvas" id="outfit-canvas"></div>
     </div>
 
-    <!-- Right Column: The Wardrobe Panel / Product Tag -->
+    
     <div class="wardrobe-panel">
-      <!-- Default view when nothing is selected -->
+      
       <div id="wardrobe-default" class="wardrobe-state active">
         <div class="fitting-room-sticker">✦ FITTING ROOM ✦</div>
         <div class="sparkle-icon">✨</div>
@@ -724,7 +724,7 @@
         </div>
       </div>
 
-      <!-- Detail view when a garment is selected -->
+      
       <div id="wardrobe-active-detail" class="wardrobe-state">
         <div class="price-tag-container">
           <div class="price-tag-string"></div>
@@ -789,22 +789,22 @@ async function addCurrentToCart() {
 }
 
 function openOutfit(id, outfitName) {
-  // Update detail title
+  
   document.getElementById('outfit-detail-title').innerText = outfitName || 'Outfit Details';
 
   const canvas = document.getElementById('outfit-canvas');
   canvas.innerHTML = '';
   
-  // Add mannequin silhouette
+  
   const mannequin = document.createElement('div');
   mannequin.className = 'mannequin-silhouette';
   mannequin.innerHTML = `
     <svg viewBox="0 0 100 200" style="width:100%; height:100%;" xmlns="http://www.w3.org/2000/svg">
-      <!-- Hook -->
+      
       <path d="M 50,22 Q 45,22 43,15 Q 43,8 50,8 Q 57,8 57,15" fill="none" stroke="rgba(255, 79, 163, 0.4)" stroke-width="2.5" stroke-linecap="round" />
-      <!-- Hanger arms -->
+      
       <path d="M 15,48 Q 50,30 85,48" stroke="rgba(255, 79, 163, 0.5)" stroke-width="3" fill="none" stroke-linecap="round" />
-      <!-- Body form outline -->
+      
       <path d="M 30,55 C 32,80 38,98 40,115 C 41,120 35,124 33,128 C 36,130 64,130 67,128 C 65,124 59,120 60,115 C 62,98 68,80 70,55 Z" fill="rgba(255, 192, 203, 0.12)" stroke="rgba(255, 79, 163, 0.3)" stroke-width="2" />
       <line x1="50" y1="128" x2="50" y2="190" stroke="rgba(255, 79, 163, 0.4)" stroke-width="3.5" />
       <path d="M 35,190 L 65,190 M 42,190 L 50,180 L 58,190" stroke="rgba(255, 79, 163, 0.4)" stroke-width="3.5" fill="none" stroke-linejoin="round" />
@@ -820,13 +820,13 @@ function openOutfit(id, outfitName) {
       img.className = 'piece';
       img.style.cssText = item.style;
       
-      // Make active pieces highlightable
+      
       if (item.title) {
         img.classList.add('clickable-piece');
         img.onclick = (e) => {
           e.stopPropagation();
           
-          // Remove active class from other pieces
+          
           document.querySelectorAll('.piece').forEach(p => p.classList.remove('selected-piece'));
           img.classList.add('selected-piece');
           
@@ -837,7 +837,7 @@ function openOutfit(id, outfitName) {
     });
   }
 
-  // Set right column to default state
+  
   document.getElementById('wardrobe-default').classList.add('active');
   document.getElementById('wardrobe-active-detail').classList.remove('active');
 
@@ -849,12 +849,12 @@ function openOutfit(id, outfitName) {
 function closeOutfit() {
   document.getElementById('gallery-view').style.display = 'grid';
   document.getElementById('detail-view').style.display = 'none';
-  // Remove selected highlights
+  
   document.querySelectorAll('.piece').forEach(p => p.classList.remove('selected-piece'));
 }
 
 function openBuy(title, desc, price, image) {
-  // Update active card content
+  
   document.getElementById('p-title').innerText = title;
   document.getElementById('p-desc').innerText = desc;
   document.getElementById('p-price').innerText = price;
@@ -867,7 +867,7 @@ function openBuy(title, desc, price, image) {
     image: image,
   };
 
-  // Toggle wardrobe panel states
+  
   document.getElementById('wardrobe-default').classList.remove('active');
   document.getElementById('wardrobe-active-detail').classList.add('active');
 }

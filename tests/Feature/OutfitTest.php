@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -17,7 +18,6 @@ class OutfitTest extends TestCase
     {
         parent::setUp();
 
-        // Seed the database
         $this->seed(\Database\Seeders\ProductSeeder::class);
     }
 
@@ -29,7 +29,6 @@ class OutfitTest extends TestCase
             ->get(route('admin.dashboard'));
 
         $response->assertStatus(200);
-        // It should show 8 outfits in the Total Outfits counter
         $response->assertSee('8');
     }
 
@@ -42,11 +41,9 @@ class OutfitTest extends TestCase
 
         $response->assertStatus(200);
         
-        // Section 1: Main Image
         $response->assertSee('Sección 1: Imagen Principal del Outfit');
         $response->assertSee('name="image"', false);
         
-        // Section 2: Individual Garments
         $response->assertSee('Sección 2: Prendas Individuales (Dressing Pieces)');
         $response->assertSee('Agregar Nueva Prenda');
     }
@@ -60,11 +57,13 @@ class OutfitTest extends TestCase
         $mainImage = UploadedFile::fake()->create('outfit_main.png', 100);
         $garmentImage = UploadedFile::fake()->create('top_piece.png', 100);
 
+        $category = Category::query()->firstOrCreate(['slug' => 'outfits'], ['name' => 'Outfits', 'type' => 'product']);
+
         $postData = [
             'name' => 'Custom Y2K Set',
             'slug' => 'custom-y2k-set',
             'description' => 'Wednesday special edition outfit',
-            'category' => 'Outfits',
+            'category_id' => $category->id,
             'price' => '150.00',
             'stock' => '5',
             'is_active' => '1',
@@ -85,7 +84,6 @@ class OutfitTest extends TestCase
 
         $response->assertRedirect(route('admin.products.index'));
 
-        // Verify product was created
         $product = Product::query()->where('slug', 'custom-y2k-set')->first();
         $this->assertNotNull($product);
         $this->assertEquals('Custom Y2K Set', $product->name);
@@ -96,7 +94,6 @@ class OutfitTest extends TestCase
         $this->assertStringContainsString('uploads/', $product->image_path);
         $this->assertStringContainsString('uploads/', $garment['src']);
 
-        // Clean up uploaded files in public/uploads if any were created during tests
         $mainFile = public_path($product->image_path);
         $garmentFile = public_path($garment['src']);
         if (file_exists($mainFile)) {
@@ -109,12 +106,10 @@ class OutfitTest extends TestCase
 
     public function test_public_lookbook_page_lists_all_outfits_dynamically(): void
     {
-        // 8 seeded outfits are available
         $response = $this->get(route('products.index'));
 
         $response->assertStatus(200);
 
-        // Verify some of the seeded outfits are displayed
         $response->assertSee('Plastics Signature');
         $response->assertSee('Pink Army');
         $response->assertSee('Vintage Pink');
@@ -131,7 +126,6 @@ class OutfitTest extends TestCase
 
         $response->assertStatus(200);
 
-        // Verify key Mean Girls styling elements
         $response->assertSee('We Wear Pink');
         $response->assertSee('Get In, Loser!');
         $response->assertSee('You Can\'t Sit With Us!', false);

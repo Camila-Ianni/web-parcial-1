@@ -11,7 +11,7 @@
   --dark-magenta: #701040;
 }
 
-/* --- BODY BACKGROUND OVERRIDE --- */
+
 body {
   background-color: #fffcfd !important;
   background-image: 
@@ -20,7 +20,7 @@ body {
   background-size: 20px 20px !important;
 }
 
-/* --- NOTEBOOK SPREAD LAYOUT --- */
+
 .notebook-spread {
   position: relative;
   padding: 40px 20px;
@@ -38,7 +38,7 @@ body {
   z-index: 2;
 }
 
-/* --- HERO SECTION --- */
+
 .hero {
   text-align: center;
   padding: 30px 0 20px;
@@ -58,7 +58,7 @@ body {
   box-shadow: 2px 4px 8px rgba(255, 79, 163, 0.25);
 }
 
-/* RANSOM WORDS FOR THE HERO */
+
 .hero-ransom-word {
   display: flex;
   justify-content: center;
@@ -98,7 +98,7 @@ body {
 .hero-ransom-letter:nth-child(9) { transform: rotate(-3deg); }
 .hero-ransom-letter:nth-child(10) { transform: rotate(6deg); }
 
-/* RANSOM FONTS STYLE */
+
 .rl-black-serif {
   background: #121212;
   color: #ffffff;
@@ -141,7 +141,7 @@ body {
   z-index: 12;
 }
 
-/* --- PRODUCT SECTION CONTAINER --- */
+
 .main-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -149,7 +149,7 @@ body {
   height: 980px;
 }
 
-/* FETCH SELLERS STICKER */
+
 .fetch-sellers-sticker {
   display: block;
   width: fit-content;
@@ -173,7 +173,7 @@ body {
   background: var(--dark-magenta);
 }
 
-/* --- POLAROID CARDS --- */
+
 .polaroid-card {
   position: absolute;
   background: white;
@@ -265,7 +265,7 @@ body {
   font-size: 16px;
 }
 
-/* SCOTCH TAPE DECORATION */
+
 .tape-deco {
   position: absolute;
   width: 90px;
@@ -283,7 +283,7 @@ body {
   background: rgba(253, 230, 239, 0.45);
 }
 
-/* --- Y2K STICKERS --- */
+
 .y2k-sticker {
   position: absolute;
   font-family: 'Permanent Marker', cursive;
@@ -330,7 +330,7 @@ body {
   100% { transform: rotate(12deg) translate(0, 0); }
 }
 
-/* --- STICKY NOTE --- */
+
 .sticky-note {
   position: absolute;
   width: 170px;
@@ -362,7 +362,7 @@ body {
   line-height: 1.2;
 }
 
-/* --- CATEGORIES --- */
+
 .categories {
   position: absolute;
   top: 160px;
@@ -403,7 +403,7 @@ body {
   box-shadow: 0 8px 16px rgba(255, 79, 163, 0.25);
 }
 
-/* --- FOOTER CTA --- */
+
 .footer-cta {
   position: absolute;
   bottom: 50px;
@@ -443,7 +443,7 @@ body {
   <section class="hero">
     <div class="badge-on">ON</div>
     
-    <!-- WEDNESDAYS Ransom Word -->
+    
     <div class="hero-ransom-word">
       <span class="hero-ransom-letter rl-black-serif">W</span>
       <span class="hero-ransom-letter rl-white-sans">E</span>
@@ -457,7 +457,7 @@ body {
       <span class="hero-ransom-letter rl-white-marker">S</span>
     </div>
 
-    <!-- Hand-drawn style brush stroke under title -->
+    
     <div style="position: relative; display: inline-block;">
       <span class="script">We Wear Pink</span>
       <svg style="position: absolute; bottom: -8px; left: 10%; width: 80%; height: 15px;" viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg">
@@ -468,7 +468,7 @@ body {
 
   <div class="main-container">
 
-    <!-- Interactive Doodles & Arrow Vector -->
+    
     <svg class="arrow-doodle" style="position: absolute; top: 110px; left: 190px; width: 60px; height: 60px; transform: rotate(-30deg); z-index: 10;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <path d="M 10,90 Q 30,50 80,20" fill="none" stroke="var(--hot-pink)" stroke-width="4.5" stroke-dasharray="6 3" stroke-linecap="round" />
       <path d="M 55,12 L 83,18 L 73,42" fill="none" stroke="var(--hot-pink)" stroke-width="4.5" stroke-linecap="round" />
@@ -481,7 +481,7 @@ body {
       </svg>
     </div>
 
-    <!-- Y2K Stickers -->
+    
     <div class="y2k-sticker sticker-get-in" style="top: 105px; left: 240px; transform: rotate(10deg);">
       Get In, Loser!
     </div>
@@ -494,19 +494,19 @@ body {
       That's so fetch!
     </div>
 
-    <!-- Shop CTA button -->
+    
     <a href="{{ route('products.index') }}" class="fetch-sellers-sticker">
       💅 SHOP THE CATALOG ➔
     </a>
 
-    <!-- Categories -->
+    
     <div class="categories" onclick="location.href='{{ route('products.index') }}'">
       <div class="cat-item"><div class="circle" style="background-image:url('{{ asset('img/sleeves.jpg') }}')"></div>Sleeves</div>
       <div class="cat-item"><div class="circle" style="background-image:url('{{ asset('img/tops.jpg') }}')"></div>Tops</div>
       <div class="cat-item"><div class="circle" style="background-image:url('{{ asset('img/bottoms.jpg') }}')"></div>Bottoms</div>
     </div>
 
-    <!-- Taped Polaroid 1 -->
+    
     <div class="polaroid-card polo" onclick="location.href='{{ route('products.index') }}'">
       <div class="tape-deco top-tape"></div>
       <div class="polaroid-photo-area">
@@ -523,7 +523,7 @@ body {
       </div>
     </div>
 
-    <!-- Taped Polaroid 2 -->
+    
     <div class="polaroid-card cardigan" onclick="location.href='{{ route('products.index') }}'">
       <div class="tape-deco top-tape"></div>
       <div class="polaroid-photo-area">
@@ -540,7 +540,7 @@ body {
       </div>
     </div>
 
-    <!-- Interactive Sticky Note Easter Egg -->
+    
     <div class="sticky-note" style="top: 720px; left: 420px; transform: rotate(-5deg);">
       <div class="sticky-pin">📌</div>
       <p class="sticky-text">Is butter a carb?</p>
@@ -550,7 +550,7 @@ body {
       </div>
     </div>
 
-    <!-- Hand-drawn Star Doodle -->
+    
     <svg class="star-doodle" style="position: absolute; top: 460px; left: 80px; width: 35px; height: 35px; pointer-events: none;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <path d="M 50,10 L 63,38 L 93,38 L 70,55 L 78,85 L 50,68 L 22,85 L 30,55 L 7,38 L 37,38 Z" fill="none" stroke="var(--hot-pink)" stroke-width="5.5" stroke-dasharray="5 2.5" />
     </svg>

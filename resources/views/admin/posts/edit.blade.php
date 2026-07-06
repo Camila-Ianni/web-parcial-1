@@ -32,8 +32,15 @@
       <input id="author_name" name="author_name" value="{{ old('author_name', $post->author_name) }}" required>
     </div>
     <div>
-      <label for="category">Categoria</label>
-      <input id="category" name="category" value="{{ old('category', $post->category) }}" required>
+      <label for="category_id">Categoria</label>
+      <select id="category_id" name="category_id" required style="background: white;">
+        <option value="">-- Seleccionar Categoría --</option>
+        @foreach($categories as $category)
+          <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
+            {{ $category->name }}
+          </option>
+        @endforeach
+      </select>
     </div>
     <div>
       <label for="image">Cambiar Imagen (Archivo, Opcional)</label>

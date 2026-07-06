@@ -2,6 +2,9 @@
 
 @section('title', 'Burn Book | Gossip & Trends')
 
+@section('push-styles')
+@endsection
+
 @push('page-styles')
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Permanent+Marker&family=Special+Elite&family=Architects+Daughter&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
@@ -15,7 +18,6 @@
   align-items: center;
 }
 
-/* --- BURN BOOK CONTAINER --- */
 .book-wrapper {
   perspective: 1500px;
   width: 100%;
@@ -25,7 +27,7 @@
 
 .burn-book {
   position: relative;
-  width: 530px; /* Width of single page/cover */
+  width: 530px;
   height: 700px;
   margin: 0 auto;
   transition: transform 1s ease, width 1s ease;
@@ -34,12 +36,10 @@
   border-radius: 20px;
 }
 
-/* When the book is open, it doubles in width */
 .burn-book.open {
   width: 1060px;
 }
 
-/* Cover Styling - Dusty Rose/Mean Girls exact pink */
 .book-cover {
   position: absolute;
   inset: 0;
@@ -58,7 +58,7 @@
   cursor: pointer;
   transition: transform 0.4s ease, box-shadow 0.3s;
   overflow: hidden;
-  border-left: 22px solid #b83d6a; /* Spine fold */
+  border-left: 22px solid #b83d6a;
 }
 
 .book-cover:hover {
@@ -69,7 +69,6 @@
     0 20px 45px rgba(219, 86, 134, 0.4);
 }
 
-/* --- DOODLES (Exact SVG replication overlay) --- */
 .cover-doodles-svg {
   position: absolute;
   inset: 0;
@@ -80,7 +79,6 @@
   opacity: 0.85;
 }
 
-/* --- RANSOM LETTERS IN A CIRCLE --- */
 .ransom-circle-container {
   position: relative;
   width: 440px;
@@ -92,7 +90,6 @@
   margin-top: -30px;
 }
 
-/* Kiss mark positioned exactly in the center of the letters circle */
 .kiss-mark-center {
   position: absolute;
   width: 130px;
@@ -106,7 +103,6 @@
   z-index: 2;
 }
 
-/* Precise positioning of cut paper letters in the circular/arch path */
 .ransom-piece {
   position: absolute;
   display: flex;
@@ -117,7 +113,6 @@
   text-transform: uppercase;
 }
 
-/* Letter 1: B (Top left) */
 .letter-b1 {
   width: 65px; height: 80px;
   background: #121212;
@@ -130,7 +125,6 @@
   clip-path: polygon(4% 6%, 96% 2%, 91% 94%, 8% 90%);
 }
 
-/* Letter 2: U (Top mid-left) */
 .letter-u {
   width: 60px; height: 75px;
   background: #ffffff;
@@ -143,7 +137,6 @@
   clip-path: polygon(10% 2%, 92% 8%, 95% 92%, 3% 97%);
 }
 
-/* Letter 3: R (Top mid-right) */
 .letter-r {
   width: 62px; height: 78px;
   background: #121212;
@@ -155,7 +148,6 @@
   clip-path: polygon(2% 10%, 98% 3%, 89% 95%, 7% 92%);
 }
 
-/* Letter 4: N (Top right) */
 .letter-n {
   width: 65px; height: 80px;
   background: #ffffff;
@@ -167,7 +159,6 @@
   clip-path: polygon(8% 8%, 92% 4%, 97% 91%, 5% 95%);
 }
 
-/* Letter 5: B (Bottom left) */
 .letter-b2 {
   width: 60px; height: 76px;
   background: #121212;
@@ -179,7 +170,6 @@
   clip-path: polygon(5% 12%, 95% 6%, 92% 98%, 10% 88%);
 }
 
-/* Letter 6: O1 (Bottom mid-left) */
 .letter-o1 {
   width: 60px; height: 75px;
   background: #ffffff;
@@ -192,7 +182,6 @@
   clip-path: polygon(6% 4%, 94% 9%, 92% 94%, 4% 92%);
 }
 
-/* Letter 7: O2 (Bottom mid-right) */
 .letter-o2 {
   width: 62px; height: 78px;
   background: #ffffff;
@@ -204,7 +193,6 @@
   clip-path: polygon(3% 10%, 97% 4%, 94% 96%, 6% 92%);
 }
 
-/* Letter 8: K (Bottom right) */
 .letter-k {
   width: 65px; height: 80px;
   background: #ffffff;
@@ -232,7 +220,6 @@
   z-index: 4;
 }
 
-/* --- INSIDE BOOK LAYOUT --- */
 .book-inside {
   display: none;
   width: 100%;
@@ -252,7 +239,6 @@
   display: grid;
 }
 
-/* Center Spine of the Binder */
 .book-spine {
   position: absolute;
   top: 0;
@@ -267,7 +253,6 @@
   pointer-events: none;
 }
 
-/* Lined Pages */
 .book-page {
   position: relative;
   background: #fffdf5;
@@ -297,7 +282,6 @@
   padding-left: 45px;
 }
 
-/* Page margin line */
 .book-page::before {
   content: '';
   position: absolute;
@@ -309,7 +293,6 @@
 .book-page.left::before { right: 30px; }
 .book-page.right::before { left: 30px; }
 
-/* Page turn floating indicators */
 .page-flip-indicator {
   position: absolute;
   top: 50%;
@@ -352,7 +335,6 @@
   transform: scale(1.05);
 }
 
-/* Active Gossip Spread container */
 .gossip-spread {
   display: none;
   width: 100%;
@@ -373,7 +355,6 @@
   text-align: center;
 }
 
-/* Polaroid image */
 .scrapbook-polaroid {
   background: white;
   padding: 12px 12px 30px;
@@ -441,7 +422,6 @@
   user-select: none;
 }
 
-/* Responsive book */
 @media (max-width: 1080px) {
   .burn-book {
     width: 100% !important;
@@ -476,6 +456,62 @@
     display: none;
   }
 }
+
+.book-tabs {
+  position: absolute;
+  right: -35px;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 100;
+}
+
+.book-tab {
+  width: 35px;
+  height: 90px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 13px;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background-color 0.2s, width 0.2s;
+  border: 2px solid var(--hot-pink);
+  border-left: none;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+.book-tab:hover {
+  transform: translateX(4px);
+}
+
+.book-tab.active {
+  transform: translateX(8px);
+  width: 40px;
+}
+
+.book-tab[data-category="fashion"] {
+  background: #fde6ef;
+  color: var(--hot-pink);
+}
+.book-tab[data-category="fashion"].active {
+  background: #ffc2d4;
+}
+
+.book-tab[data-category="gossip"] {
+  background: #121212;
+  color: var(--hot-pink);
+}
+.book-tab[data-category="gossip"].active {
+  background: #1e1e1e;
+  border-color: #ff007f;
+}
 </style>
 @endpush
 
@@ -496,12 +532,14 @@
     <div class="book-wrapper">
       <div id="burn-book" class="burn-book closed">
         
-        <!-- COVER PAGE (Exact Replica of the Burn Book Cover) -->
+        <div class="book-tabs">
+          <div class="book-tab active" data-category="fashion" onclick="selectCategory('fashion', event)">FASHION</div>
+          <div class="book-tab" data-category="gossip" onclick="selectCategory('gossip', event)">GOSSIP</div>
+        </div>
+
         <div class="book-cover" onclick="openBook()">
           
-          <!-- Exact Doodle replication overlay SVG -->
           <svg class="cover-doodles-svg" viewBox="0 0 500 680" xmlns="http://www.w3.org/2000/svg">
-            <!-- Top Left Doodle: square box with spiral lines -->
             <path d="M 50,40 L 90,40 L 90,80 L 50,80 Z" stroke="black" stroke-width="2.5" fill="none"/>
             <path d="M 60,50 L 80,50 L 80,70 L 60,70 Z" stroke="black" stroke-width="1.8" fill="none"/>
             <path d="M 50,40 L 90,80 M 90,40 L 50,80" stroke="black" stroke-width="1.5" fill="none"/>
@@ -509,11 +547,9 @@
             <path d="M 130,90 L 130,110 L 170,110 L 170,90 L 150,90" stroke="black" stroke-width="2.2" fill="none"/>
             <text x="180" y="55" font-family="'Permanent Marker', cursive" font-size="16" fill="black" transform="rotate(3, 180, 55)">STAB</text>
             
-            <!-- Top Right Doodle: Spiral circle with arrow -->
             <path d="M 370,55 C 380,45 400,45 405,60 C 410,75 390,90 380,85 C 370,80 375,65 385,68 M 382,75 L 360,95 M 360,95 L 360,85 M 360,95 L 370,95" stroke="black" stroke-width="2.2" fill="none"/>
             <text x="55" y="115" font-family="'Permanent Marker', cursive" font-size="12" fill="black" transform="rotate(-90, 55, 115)">BIG HAIR</text>
 
-            <!-- Bottom Left Doodle: waves, spirals and scribbles -->
             <path d="M 40,540 C 50,530 55,550 65,540 C 75,530 80,550 90,540" stroke="black" stroke-width="2" fill="none"/>
             <path d="M 45,550 C 55,540 60,560 70,550 C 80,540 85,560 95,550" stroke="black" stroke-width="2" fill="none"/>
             <path d="M 100,560 C 100,540 120,540 120,555 C 120,570 105,570 110,560 L 115,550" stroke="black" stroke-width="2.2" fill="none"/>
@@ -521,14 +557,12 @@
             <text x="70" y="605" font-family="'Permanent Marker', cursive" font-size="17" fill="black" transform="rotate(-6, 70, 605)">STAB ME</text>
             <text x="80" y="625" font-family="'Permanent Marker', cursive" font-size="13" fill="black" transform="rotate(3, 80, 625)">STAB</text>
 
-            <!-- Bottom Right Doodle: FAT ME and jagged shapes -->
             <text x="260" y="590" font-family="'Permanent Marker', cursive" font-size="17" fill="black" transform="rotate(6, 260, 590)">FAT ME</text>
             <path d="M 255,600 L 320,600" stroke="black" stroke-width="2.5"/>
             <path d="M 80,635 L 280,635 L 280,645 L 80,645" stroke="black" stroke-width="1.8" fill="none"/>
             <text x="350" y="635" font-family="'Permanent Marker', cursive" font-size="14" fill="black" transform="rotate(-2, 350, 635)">LUGABLE</text>
           </svg>
 
-          <!-- RANSOM LETTERS IN A CIRCLE -->
           <div class="ransom-circle-container">
             <div class="kiss-mark-center"></div>
             <span class="ransom-piece letter-b1">B</span>
@@ -544,50 +578,42 @@
           <div class="click-to-open-sticker">✦ CLICK TO OPEN ✦</div>
         </div>
 
-        <!-- INSIDE BOOK PAGES -->
         <div class="book-inside">
           <button class="close-book-btn" onclick="event.stopPropagation(); closeBook()">✕ Cerrar Libro</button>
           
           <div class="book-spine"></div>
 
           @foreach($posts as $index => $post)
-            <div id="secret-spread-{{ $index }}" class="gossip-spread {{ $index === 0 ? 'active' : '' }}" style="display: {{ $index === 0 ? 'flex' : 'none' }}; width: 100%; height: 100%;">
+            <div id="secret-spread-{{ $index }}" class="gossip-spread" data-category="{{ $post->category->slug }}" style="display: none; width: 100%; height: 100%;">
               
-              <!-- Left Page: Polaroid, Title & Info. Clicking goes to Previous post -->
               <div class="book-page left" onclick="prevSecret()">
                 <div class="page-flip-indicator left-indicator">◀ Anterior</div>
                 
                 <h3 class="page-title">Regina's Gossip</h3>
                 
-                <!-- Polaroid Photo Card -->
                 <div class="scrapbook-polaroid">
                   <span class="scrapbook-tape"></span>
                   <img src="{{ asset($post->image_path) }}" alt="{{ $post->title }}">
                 </div>
 
-                <!-- Editorial Meta -->
                 <div class="gossip-author-meta" style="text-align: center; margin-top: 10px;">
-                  Por: {{ $post->author_name }} | {{ $post->category }}
+                  Por: {{ $post->author_name }} | {{ $post->category->name }}
                 </div>
                 
                 <div class="margin-decor">★ Toca aquí para página anterior ★</div>
               </div>
 
-              <!-- Right Page: Cursive Body Text. Clicking goes to Next post -->
               <div class="book-page right" onclick="nextSecret()">
                 <div class="page-flip-indicator right-indicator">Siguiente ▶</div>
 
-                <!-- Headline -->
                 <h2 class="gossip-headline" style="text-align: center; margin-top: 20px;">
                   {{ $post->title }}
                 </h2>
 
-                <!-- Handwritten Body -->
                 <div class="gossip-body-text">
                   {!! nl2br(e($post->content)) !!}
                 </div>
 
-                <!-- Footer Decor -->
                 <div class="margin-decor" style="margin-top: auto; padding-top: 25px;">
                   Publicado: {{ $post->published_at?->format('d/m/Y') ?? 'Reciente' }}
                 </div>
@@ -595,6 +621,27 @@
 
             </div>
           @endforeach
+
+          <div id="empty-category-message" class="gossip-spread" style="display: none; width: 100%; height: 100%;">
+            <div class="book-page left" onclick="prevSecret()">
+              <h3 class="page-title">Regina's Gossip</h3>
+              <div style="text-align: center; margin-top: 80px;">
+                <span style="font-size: 80px;">🤫</span>
+              </div>
+              <div class="margin-decor">★ Toca aquí para página anterior ★</div>
+            </div>
+            <div class="book-page right" onclick="nextSecret()">
+              <h2 class="gossip-headline" style="text-align: center; margin-top: 40px;">
+                Sin Secretos
+              </h2>
+              <div class="gossip-body-text" style="text-align: center; font-size: 20px; margin-top: 20px;">
+                No hay chismes en esta categoría aún... ¡Sé el primero en subir uno!
+              </div>
+              <div class="margin-decor" style="margin-top: auto; padding-top: 25px;">
+                Burn Book
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -608,7 +655,7 @@
 @push('page-scripts')
 <script>
 let currentGossipIndex = 0;
-const totalGossips = {{ $posts->count() }};
+let activeCategory = 'fashion';
 
 function openBook() {
   const book = document.getElementById('burn-book');
@@ -626,30 +673,108 @@ function closeBook() {
   }
 }
 
-function showSecretSpread(index) {
-  // Hide all spreads
+function filterGossips() {
   const spreads = document.querySelectorAll('.gossip-spread');
-  spreads.forEach((spread, i) => {
-    spread.classList.remove('active');
-    spread.style.display = 'none';
+  let visibleIndex = 0;
+  let firstVisibleIndex = -1;
+  
+  spreads.forEach((spread) => {
+    if (spread.id === 'empty-category-message') return;
+    
+    const cat = spread.getAttribute('data-category');
+    if (cat === activeCategory) {
+       spread.setAttribute('data-visible-index', visibleIndex);
+       if (firstVisibleIndex === -1) {
+         firstVisibleIndex = visibleIndex;
+       }
+       visibleIndex++;
+    } else {
+       spread.removeAttribute('data-visible-index');
+       spread.style.display = 'none';
+       spread.classList.remove('active');
+    }
   });
 
-  // Show active spread
-  const activeSpread = document.getElementById('secret-spread-' + index);
-  if (activeSpread) {
-    activeSpread.classList.add('active');
-    activeSpread.style.display = 'flex';
-  }
+  return visibleIndex;
+}
+
+function showSecretSpread(visibleIdx) {
+  const spreads = document.querySelectorAll('.gossip-spread');
+  spreads.forEach((spread) => {
+    if (spread.id === 'empty-category-message') return;
+    
+    const vIdx = spread.getAttribute('data-visible-index');
+    if (vIdx !== null && parseInt(vIdx) === visibleIdx) {
+      spread.classList.add('active');
+      spread.style.display = 'flex';
+    } else {
+      spread.classList.remove('active');
+      spread.style.display = 'none';
+    }
+  });
 }
 
 function nextSecret() {
-  currentGossipIndex = (currentGossipIndex + 1) % totalGossips;
-  showSecretSpread(currentGossipIndex);
+  const total = filterGossips();
+  if (total > 0) {
+    currentGossipIndex = (currentGossipIndex + 1) % total;
+    showSecretSpread(currentGossipIndex);
+  }
 }
 
 function prevSecret() {
-  currentGossipIndex = (currentGossipIndex - 1 + totalGossips) % totalGossips;
-  showSecretSpread(currentGossipIndex);
+  const total = filterGossips();
+  if (total > 0) {
+    currentGossipIndex = (currentGossipIndex - 1 + total) % total;
+    showSecretSpread(currentGossipIndex);
+  }
 }
+
+function selectCategory(category, event) {
+  if (event) {
+    event.stopPropagation();
+  }
+  
+  activeCategory = category;
+  
+  document.querySelectorAll('.book-tab').forEach(tab => {
+    if (tab.getAttribute('data-category') === category) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+  
+  openBook();
+  
+  currentGossipIndex = 0;
+  const total = filterGossips();
+  const emptyMsg = document.getElementById('empty-category-message');
+  
+  if (total > 0) {
+    emptyMsg.style.display = 'none';
+    emptyMsg.classList.remove('active');
+    showSecretSpread(0);
+  } else {
+    emptyMsg.style.display = 'flex';
+    emptyMsg.classList.add('active');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  filterGossips();
+  const spreads = document.querySelectorAll('.gossip-spread');
+  let firstFashionIndex = -1;
+  spreads.forEach((spread, i) => {
+    if (spread.getAttribute('data-category') === 'fashion') {
+      if (firstFashionIndex === -1) firstFashionIndex = i;
+    }
+  });
+  
+  if (firstFashionIndex !== -1) {
+    document.getElementById('secret-spread-' + firstFashionIndex).style.display = 'flex';
+    document.getElementById('secret-spread-' + firstFashionIndex).classList.add('active');
+  }
+});
 </script>
 @endpush

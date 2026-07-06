@@ -8,31 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-/**
- * Class AuthController
- *
- * Handles authentication routes including login, registration, and logout.
- *
- * @package App\Http\Controllers
- */
+
 class AuthController extends Controller
 {
-    /**
-     * Display the login form.
-     *
-     * @return \Illuminate\View\View
-     */
+    
     public function showLoginForm(): View
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle an authentication attempt.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -55,22 +40,13 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    /**
-     * Display the registration form.
-     *
-     * @return \Illuminate\View\View
-     */
+    
     public function showRegisterForm(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle a registration request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function register(Request $request): RedirectResponse
     {
         $data = $request->validate([
@@ -99,12 +75,7 @@ class AuthController extends Controller
         return redirect()->route('home')->with('status', 'Registro exitoso. ¡Bienvenido/a!');
     }
 
-    /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

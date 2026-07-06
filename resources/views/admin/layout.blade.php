@@ -18,7 +18,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Custom Y2K Scrollbar */
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -304,7 +304,7 @@ textarea { min-height: 150px; resize: vertical; }
   h1 { font-size: 38px; }
 }
 
-/* Y2K Fashion Decorative quotes card */
+
 .fashion-quote-card {
   background: linear-gradient(135deg, var(--soft-pink) 0%, #fff 100%);
   border: 2px dashed var(--hot-pink);
@@ -347,7 +347,7 @@ textarea { min-height: 150px; resize: vertical; }
 <main>
   @yield('content')
 
-  <!-- Cute fashion quotes card footer for Y2K vibes -->
+  
   <div class="fashion-quote-card">
     <p>"On Wednesdays we wear pink, but in this editor panel, we curate the most iconic Y2K fashion trends."</p>
     <span>★ Regina's Rules for plastics editorial board ★</span>

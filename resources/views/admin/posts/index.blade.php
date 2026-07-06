@@ -28,7 +28,7 @@
       @foreach($posts as $post)
         <tr>
           <td>{{ $post->title }}</td>
-          <td>{{ $post->category }}</td>
+          <td>{{ $post->category->name }}</td>
           <td>{{ $post->author_name }}</td>
           <td>{{ $post->is_published ? 'Si' : 'No' }}</td>
           <td class="actions">

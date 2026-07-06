@@ -3,23 +3,25 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
+        $category = Category::query()->firstOrCreate([
+            'slug' => 'outfits',
+        ], [
+            'name' => 'Outfits',
+            'type' => 'product',
+        ]);
+
         $products = [
             [
                 'name' => 'Plastics Signature',
                 'slug' => 'plastics-signature',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Wednesday Collection',
                 'price' => 274.90,
                 'stock' => 10,
@@ -35,7 +37,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Pink Army',
                 'slug' => 'pink-army',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Spring 2026 Edition',
                 'price' => 310.00,
                 'stock' => 15,
@@ -51,7 +53,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Vintage Pink',
                 'slug' => 'vintage-pink',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Limited Release',
                 'price' => 236.00,
                 'stock' => 8,
@@ -67,7 +69,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Burn Book Chic',
                 'slug' => 'burn-book-chic',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Class of 2026',
                 'price' => 326.00,
                 'stock' => 12,
@@ -83,7 +85,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Mall Tour',
                 'slug' => 'mall-tour',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Casual Set',
                 'price' => 197.00,
                 'stock' => 20,
@@ -99,7 +101,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Gretchen's Style",
                 'slug' => 'gretchens-style',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Rich & Famous',
                 'price' => 384.00,
                 'stock' => 7,
@@ -115,7 +117,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Regina's Choice",
                 'slug' => 'reginas-choice',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Boss Lady',
                 'price' => 365.00,
                 'stock' => 5,
@@ -131,7 +133,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Karen's Vibes",
                 'slug' => 'karens-vibes',
-                'category' => 'Outfits',
+                'category_id' => $category->id,
                 'description' => 'Pink Weather',
                 'price' => 282.00,
                 'stock' => 12,

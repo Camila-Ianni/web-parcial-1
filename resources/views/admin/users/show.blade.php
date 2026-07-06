@@ -31,11 +31,8 @@
 
 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 28px; margin-top: 15px; align-items: start;">
   
-  <!-- Left Side: Profile Polaroid Card -->
   <div style="display: flex; flex-direction: column; gap: 20px;">
-    <!-- Polaroid Frame -->
     <section class="panel" style="background: white; padding: 20px 20px 30px; text-align: center; border: 1px solid #ffd3e8; box-shadow: 0 10px 30px rgba(255, 79, 163, 0.08); border-radius: 12px;">
-      <!-- Simulated Profile Photo / Silhouette -->
       <div style="width: 100%; aspect-ratio: 1; background: radial-gradient(circle, #fff3f8 0%, #fde6ef 100%); border: 1px solid #ffd3e8; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 80px; margin-bottom: 18px; position: relative; overflow: hidden;">
         💅
         <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255, 79, 163, 0.1); padding: 4px; font-size: 11px; font-weight: bold; color: var(--hot-pink); text-transform: uppercase; letter-spacing: 0.1em;">
@@ -50,7 +47,6 @@
       </p>
     </section>
 
-    <!-- Info Detail panel -->
     <section class="panel" style="padding: 20px;">
       <h3 style="font-size: 14px; font-weight: bold; color: var(--hot-pink); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; border-bottom: 1px solid var(--soft-pink); padding-bottom: 6px;">Metadatos</h3>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
@@ -82,7 +78,6 @@
     </section>
   </div>
 
-  <!-- Right Side: Purchases Table -->
   <section class="panel" style="border-top: 6px solid var(--hot-pink);">
     <h2 style="font-size: 20px; font-family: 'Playfair Display', serif; font-style: italic; color: var(--dark-magenta); margin-bottom: 18px; border-bottom: 1px solid var(--soft-pink); padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
       <span>🛍️</span> Compras & Servicios Contratados
@@ -112,7 +107,6 @@
                 <td style="font-weight: bold; color: #888;">#{{ $purchase->id }}</td>
                 <td>
                   <div style="display: flex; align-items: center; gap: 10px;">
-                    <!-- Small Thumbnail simulation -->
                     <div style="width: 32px; height: 32px; border-radius: 6px; background: var(--soft-pink); display: flex; align-items: center; justify-content: center; font-size: 14px;">
                       👗
                     </div>
@@ -121,7 +115,7 @@
                 </td>
                 <td>
                   <span style="font-size: 12px; font-weight: bold; color: #666; background: #f1f5f9; padding: 2px 8px; border-radius: 6px;">
-                    {{ $purchase->product->category }}
+                    {{ $purchase->product->category->name }}
                   </span>
                 </td>
                 <td style="font-weight: 900; color: var(--hot-pink); font-size: 15px;">
@@ -134,7 +128,6 @@
         </table>
       </div>
       
-      <!-- Total Spend badge -->
       <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
         <div style="background: var(--soft-pink); border: 1px solid var(--hot-pink); padding: 10px 20px; border-radius: 16px; text-align: right;">
           <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: var(--dark-magenta); letter-spacing: 0.05em; display: block; margin-bottom: 2px;">Inversión Total en Estilo</span>

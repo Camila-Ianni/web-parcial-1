@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
@@ -18,7 +15,7 @@ return new class extends Migration
             $table->string('excerpt');
             $table->longText('content');
             $table->string('author_name');
-            $table->string('category');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('image_path');
             $table->boolean('is_published')->default(true);
             $table->timestamp('published_at')->nullable();
@@ -26,9 +23,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('posts');

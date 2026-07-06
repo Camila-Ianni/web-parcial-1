@@ -27,8 +27,15 @@
       <textarea id="description" name="description" required>{{ old('description') }}</textarea>
     </div>
     <div>
-      <label for="category">Categoria</label>
-      <input id="category" name="category" value="{{ old('category', 'Outfits') }}" required>
+      <label for="category_id">Categoria</label>
+      <select id="category_id" name="category_id" required style="background: white;">
+        <option value="">-- Seleccionar Categoría --</option>
+        @foreach($categories as $category)
+          <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+            {{ $category->name }}
+          </option>
+        @endforeach
+      </select>
     </div>
     <div>
       <label for="price">Precio Total</label>
@@ -43,7 +50,6 @@
       <label for="is_active" style="margin:0;">Activo</label>
     </div>
 
-    <!-- SECCION 1: IMAGEN PRINCIPAL (OUTFIT COMPLETO) -->
     <div class="field-full" style="margin-top: 20px; border-top: 2px dashed #ecb8d2; padding-top: 20px;">
       <h2 style="font-family: 'Playfair Display'; font-style: italic; color: var(--hot-pink); margin-bottom: 5px;">✦ Sección 1: Imagen Principal del Outfit ✦</h2>
       <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Sube la foto del outfit completo o indica una ruta preexistente.</p>
@@ -59,13 +65,11 @@
       </div>
     </div>
 
-    <!-- SECCION 2: PRENDAS INDIVIDUALES -->
     <div class="field-full" style="margin-top: 30px; border-top: 2px dashed #ecb8d2; padding-top: 20px;">
       <h2 style="font-family: 'Playfair Display'; font-style: italic; color: var(--hot-pink); margin-bottom: 5px;">✦ Sección 2: Prendas Individuales (Dressing Pieces) ✦</h2>
       <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Sube las imágenes de las prendas y accesorios individuales de este outfit para el probador interactivo.</p>
       
       <div id="garments-list" style="display: flex; flex-direction: column; gap: 20px;">
-        <!-- Dynamic garment rows will go here -->
       </div>
       
       <button type="button" class="btn" style="margin-top: 20px; border-color: var(--bubblegum); color: var(--bubblegum); background: white;" onclick="addGarmentRow()">
@@ -173,7 +177,6 @@ function updateStylePreset(index, value) {
   }
 }
 
-// Add one default empty row on page load
 document.addEventListener('DOMContentLoaded', () => {
   addGarmentRow();
 });

@@ -3,16 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Product;
+use App\Models\Purchase;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         $testUser = User::query()->firstOrCreate([
@@ -36,10 +32,9 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
         ]);
 
-        // Create a default purchase for the test user
-        $product = \App\Models\Product::query()->first();
+        $product = Product::query()->first();
         if ($product) {
-            \App\Models\Purchase::query()->firstOrCreate([
+            Purchase::query()->firstOrCreate([
                 'user_id' => $testUser->id,
                 'product_id' => $product->id,
             ], [

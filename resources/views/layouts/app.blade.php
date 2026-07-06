@@ -83,7 +83,7 @@ header {
   padding: 14px;
 }
 
-/* --- CART PANEL STYLES --- */
+
 #cart-panel {
   position: fixed;
   right: -360px;
@@ -191,7 +191,7 @@ header {
   @yield('content')
 </main>
 
-<!-- GLOBAL CART PANEL -->
+
 <aside id="cart-panel" aria-label="Cart panel">
   <div class="cart-head">
     <h3>Tu Carrito</h3>
@@ -277,7 +277,7 @@ document.getElementById('cart-list').addEventListener('click', (event) => {
   }
 });
 
-// Load cart on load
+
 loadCart();
 </script>
 @stack('page-scripts')
