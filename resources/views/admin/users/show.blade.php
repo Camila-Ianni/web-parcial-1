@@ -80,14 +80,77 @@
 
   <section class="panel" style="border-top: 6px solid var(--hot-pink);">
     <h2 style="font-size: 20px; font-family: 'Playfair Display', serif; font-style: italic; color: var(--dark-magenta); margin-bottom: 18px; border-bottom: 1px solid var(--soft-pink); padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-      <span>🛍️</span> Compras & Servicios Contratados
+      <span>🛍️</span> Pedidos E-commerce (Carrito)
+    </h2>
+    
+    @if($user->orders->isEmpty())
+      <div style="text-align: center; padding: 30px 20px; color: #888; background: #fffcfd; border-radius: 20px; border: 2px dashed #ffd3e8; margin-bottom: 30px;">
+        <span style="font-size: 36px; display: block; margin-bottom: 8px;">📦</span>
+        <p style="font-size: 14px; font-weight: bold; color: var(--dark-magenta);">Sin pedidos realizados en la tienda</p>
+      </div>
+    @else
+      @foreach($user->orders as $order)
+        <div style="background: #fffbfe; border: 1px solid #ffe3f0; border-radius: 16px; padding: 16px; margin-bottom: 18px; box-shadow: 0 4px 15px rgba(255, 79, 163, 0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; border-bottom: 1px dashed #ffd3e8; padding-bottom: 10px; margin-bottom: 12px;">
+            <div>
+              <span style="font-weight: 900; color: var(--dark-magenta); font-size: 15px;">Pedido #{{ $order->id }}</span>
+              <span style="color: #777; font-size: 12px; margin-left: 10px;">{{ $order->created_at->format('d/m/Y H:i') }}</span>
+            </div>
+            <div>
+              @if($order->status === 'paid')
+                <span style="background: #d1fae5; color: #065f46; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;">Pagado ✨</span>
+              @elseif($order->status === 'failed')
+                <span style="background: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;">Error ❌</span>
+              @else
+                <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;">Pendiente ⏳</span>
+              @endif
+            </div>
+          </div>
+          
+          <div style="font-size: 13px; color: #666; margin-bottom: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+            <p>📍 <strong>Dirección:</strong> {{ $order->shipping_address }}</p>
+            <p>📞 <strong>Teléfono:</strong> {{ $order->contact_phone }}</p>
+          </div>
+
+          <div class="table-wrap" style="margin-top: 10px; background: white; border-radius: 8px; border: 1px solid #f3e8ee;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+              <thead>
+                <tr style="background: #faf5f8; border-bottom: 1px solid #eee;">
+                  <th style="padding: 8px; text-align: left;">Outfit</th>
+                  <th style="padding: 8px; text-align: center;">Cantidad</th>
+                  <th style="padding: 8px; text-align: right;">Precio Unitario</th>
+                  <th style="padding: 8px; text-align: right;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($order->items as $item)
+                  <tr style="border-bottom: 1px solid #f9f9f9;">
+                    <td style="padding: 8px; text-align: left; font-weight: bold; color: var(--ink);">{{ $item->product->name }}</td>
+                    <td style="padding: 8px; text-align: center; color: #555;">{{ $item->quantity }}</td>
+                    <td style="padding: 8px; text-align: right; color: #777;">${{ number_format($item->price, 2) }}</td>
+                    <td style="padding: 8px; text-align: right; font-weight: bold; color: var(--hot-pink);">${{ number_format($item->price * $item->quantity, 2) }}</td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+
+          <div style="text-align: right; margin-top: 12px; font-size: 14px;">
+            <span style="font-weight: bold; color: #555;">Total del Pedido: </span>
+            <span style="font-size: 18px; font-weight: 900; color: var(--hot-pink);">${{ number_format($order->total_price, 2) }}</span>
+          </div>
+        </div>
+      @endforeach
+    @endif
+
+    <h2 style="font-size: 20px; font-family: 'Playfair Display', serif; font-style: italic; color: var(--dark-magenta); margin-top: 30px; margin-bottom: 18px; border-bottom: 1px solid var(--soft-pink); padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+      <span>👗</span> Servicios Contratados (2do Parcial)
     </h2>
     
     @if($user->purchases->isEmpty())
-      <div style="text-align: center; padding: 60px 40px; color: #888; background: #fffcfd; border-radius: 20px; border: 2px dashed #ffd3e8;">
-        <span style="font-size: 54px; display: block; margin-bottom: 12px; filter: grayscale(0.2);">🛍️</span>
-        <p style="font-size: 16px; font-weight: bold; color: var(--dark-magenta); margin-bottom: 4px;">Sin compras por el momento</p>
-        <p style="font-size: 13px; color: #999;">Este miembro todavía no ha comprado outfits ni contratado servicios de estilismo.</p>
+      <div style="text-align: center; padding: 30px 20px; color: #888; background: #fffcfd; border-radius: 20px; border: 2px dashed #ffd3e8;">
+        <span style="font-size: 36px; display: block; margin-bottom: 8px;">🛍️</span>
+        <p style="font-size: 14px; font-weight: bold; color: var(--dark-magenta);">Sin compras registradas (2do parcial)</p>
       </div>
     @else
       <div class="table-wrap">
@@ -115,7 +178,7 @@
                 </td>
                 <td>
                   <span style="font-size: 12px; font-weight: bold; color: #666; background: #f1f5f9; padding: 2px 8px; border-radius: 6px;">
-                    {{ $purchase->product->category->name }}
+                    {{ $purchase->product->category }}
                   </span>
                 </td>
                 <td style="font-weight: 900; color: var(--hot-pink); font-size: 15px;">

@@ -13,6 +13,50 @@
     </div>
   </div>
 
+  <!-- E-commerce Statistics Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px;">
+    
+    <!-- Stat 1: Total Revenue -->
+    <div class="panel" style="border-top: 5px solid var(--hot-pink); display: flex; flex-direction: column; justify-content: center; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 79, 163, 0.05);">
+      <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">💰 Facturación Total</span>
+      <span style="font-size: 26px; font-weight: 900; color: var(--hot-pink); font-family: 'Inter', sans-serif;">
+        ${{ number_format($totalRevenue, 2) }}
+      </span>
+      <span style="font-size: 11px; color: #aaa; margin-top: 4px;">Solo pedidos abonados</span>
+    </div>
+
+    <!-- Stat 2: Best Seller -->
+    <div class="panel" style="border-top: 5px solid var(--bubblegum); display: flex; flex-direction: column; justify-content: center; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 79, 163, 0.05);">
+      <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">👑 Producto Estrella</span>
+      <span style="font-size: 17px; font-weight: 900; color: var(--dark-magenta); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Playfair Display', serif; font-style: italic; display: block;" title="{{ $bestSellerName }}">
+        {{ $bestSellerName }}
+      </span>
+      <span style="font-size: 11px; color: var(--hot-pink); font-weight: bold; margin-top: 4px;">
+        @if($bestSellerQty > 0)
+          {{ $bestSellerQty }} unidades vendidas
+        @else
+          Sin ventas aún
+        @endif
+      </span>
+    </div>
+
+    <!-- Stat 3: Best Month -->
+    <div class="panel" style="border-top: 5px solid var(--dark-magenta); display: flex; flex-direction: column; justify-content: center; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 79, 163, 0.05);">
+      <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">📅 Mes de Mayor Venta</span>
+      <span style="font-size: 18px; font-weight: 900; color: var(--dark-magenta); font-family: 'Inter', sans-serif;">
+        {{ $bestMonth }}
+      </span>
+      <span style="font-size: 11px; color: var(--hot-pink); font-weight: bold; margin-top: 4px;">
+        @if($bestMonthRevenue > 0)
+          Recaudado: ${{ number_format($bestMonthRevenue, 2) }}
+        @else
+          Sin recaudación
+        @endif
+      </span>
+    </div>
+
+  </div>
+
   
   <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
     

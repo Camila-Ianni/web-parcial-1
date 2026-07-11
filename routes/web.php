@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\ProductManagementController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -31,6 +33,17 @@ Route::middleware('guest')->group(function (): void {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::middleware('auth')->group(function (): void {
+	Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+	Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+	Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
+	Route::get('/checkout/failure/{order}', [CheckoutController::class, 'failure'])->name('checkout.failure');
+	Route::get('/checkout/pending/{order}', [CheckoutController::class, 'pending'])->name('checkout.pending');
+
+	Route::get('/perfil', [ProfileController::class, 'show'])->name('profile.show');
+	Route::put('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+});
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function (): void {
 	Route::get('/', DashboardController::class)->name('dashboard');

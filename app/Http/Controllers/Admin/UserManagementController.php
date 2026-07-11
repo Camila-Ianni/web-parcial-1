@@ -14,15 +14,15 @@ class UserManagementController extends Controller
     public function index(): View
     {
         return view('admin.users.index', [
-            'users' => User::query()->latest()->get(),
+            'users' => User::with('orders')->latest()->get(),
         ]);
     }
 
     
     public function show(User $user): View
     {
-        
-        $user->load(['purchases.product']);
+        // Eager load purchases and orders with items
+        $user->load(['purchases.product', 'orders.items.product']);
 
         return view('admin.users.show', [
             'user' => $user,

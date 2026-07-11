@@ -169,9 +169,9 @@ header {
       @if(auth()->user()->is_admin)
         <a href="{{ route('admin.dashboard') }}" style="color: var(--hot-pink); font-weight: 900;">Admin</a>
       @endif
-      <span style="font-size: 11px; font-weight: bold; color: #777; text-transform: uppercase;">
-        {{ auth()->user()->name }}
-      </span>
+      <a href="{{ route('profile.show') }}" class="{{ request()->routeIs('profile.show') ? 'active' : '' }}" style="font-weight: bold;">
+        👤 Perfil
+      </a>
       <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         Salir
       </a>
@@ -198,7 +198,12 @@ header {
     <button class="tiny-btn" onclick="clearCart()">Vaciar</button>
   </div>
   <div id="cart-list" class="cart-list"></div>
-  <p style="margin-top:10px; font-weight:900; color:var(--hot-pink); text-align: left;">Total: <span id="cart-total">$0.00</span></p>
+  <div style="margin-top: 15px; border-top: 1px solid var(--soft-pink); padding-top: 15px;">
+    <p style="font-weight:900; color:var(--hot-pink); text-align: left; margin-bottom: 12px; font-size: 15px;">Total: <span id="cart-total">$0.00</span></p>
+    <a href="{{ route('checkout.index') }}" class="tiny-btn" style="display: block; text-align: center; text-decoration: none; background: var(--hot-pink); color: white; padding: 10px; border-radius: 12px; font-size: 12px; font-weight: bold; border: none; box-shadow: 0 4px 10px rgba(255, 79, 163, 0.2);">
+      Iniciar Compra 💳
+    </a>
+  </div>
 </aside>
 
 <script>

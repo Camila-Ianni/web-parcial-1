@@ -1,7 +1,7 @@
 Escuela de Arte Multimedial Da Vinci
 CARRERA: Analisis de sistemas
 MATERIA: Portales y Comercio Electrónico
-TRABAJO PRÁCTICO: Segundo Parcial
+TRABAJO PRÁCTICO: Examen Final (Tercera Entrega)
 PROFESOR: Carlos Ferrer
 ALUMNO/S:
 Ianni, Camila Carolina
@@ -10,11 +10,15 @@ AÑO: 2026
 TURNO: tarde
 COMISIÓN: -
 
+Credenciales Sandbox de MercadoPago:
+- Access Token: APP_USR-6523910375171787-071120-7f28e2ad3b1e32d56a29267ffea49d0d-210134950
+- Nota: Las credenciales ya están configuradas en el archivo .env.example y cargadas en el controlador para facilitar la corrección instantánea.
+
 Pasos para correr el proyecto:
 1. composer install
-2. cp .env.example .env (configurar base de datos en .env)
+2. cp .env.example .env (contiene preconfigurado el Access Token de MercadoPago y soporte SQLite)
 3. php artisan key:generate
-4. php artisan migrate:fresh --seed
+4. php artisan migrate:fresh --seed (crea los pedidos históricos de prueba para las estadísticas del admin)
 5. npm install
 6. npm run build
 7. php artisan serve

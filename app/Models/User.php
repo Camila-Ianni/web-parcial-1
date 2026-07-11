@@ -43,11 +43,25 @@ class User extends Authenticatable
         return $this->hasMany(Purchase::class);
     }
 
-    
+    /**
+     * Get the products purchased by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'purchases')
             ->withPivot('price_paid')
             ->withTimestamps();
+    }
+
+    /**
+     * Get the orders placed by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

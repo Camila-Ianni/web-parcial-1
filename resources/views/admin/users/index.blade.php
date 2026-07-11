@@ -34,6 +34,7 @@
           <th>Nombre del Miembro</th>
           <th>Email</th>
           <th>Rango / Rol</th>
+          <th>Compras</th>
           <th>Fecha de Ingreso</th>
           <th>Acciones</th>
         </tr>
@@ -56,6 +57,11 @@
                 Usuario Común
               </span>
             @endif
+          </td>
+          <td>
+            <span class="badge-pill" style="font-size: 11px; padding: 2px 8px; font-weight: bold;">
+              {{ $user->orders->count() }} pedidos
+            </span>
           </td>
           <td style="color: #888; font-size: 13px;">{{ $user->created_at->format('d/m/Y H:i') }}</td>
           <td class="actions">
