@@ -42,14 +42,12 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Seed orders to show dynamic statistics on dashboard
         $products = Product::query()->get();
         if ($products->count() >= 3) {
             $p1 = $products[0];
             $p2 = $products[1];
             $p3 = $products[2];
 
-            // Order 1: 2 months ago (Paid)
             $order1 = \App\Models\Order::create([
                 'user_id' => $testUser->id,
                 'status' => 'paid',
@@ -72,7 +70,6 @@ class DatabaseSeeder extends Seeder
                 'price' => $p2->price,
             ]);
 
-            // Order 2: 1 month ago (Paid)
             $order2 = \App\Models\Order::create([
                 'user_id' => $testUser->id,
                 'status' => 'paid',
@@ -89,7 +86,6 @@ class DatabaseSeeder extends Seeder
                 'price' => $p1->price,
             ]);
 
-            // Order 3: Now (Pending)
             $order3 = \App\Models\Order::create([
                 'user_id' => $testUser->id,
                 'status' => 'pending',

@@ -7,10 +7,8 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-
 class UserManagementController extends Controller
 {
-    
     public function index(): View
     {
         return view('admin.users.index', [
@@ -18,10 +16,8 @@ class UserManagementController extends Controller
         ]);
     }
 
-    
     public function show(User $user): View
     {
-        // Eager load purchases and orders with items
         $user->load(['purchases.product', 'orders.items.product']);
 
         return view('admin.users.show', [
@@ -29,7 +25,6 @@ class UserManagementController extends Controller
         ]);
     }
 
-    
     public function toggleRole(User $user): RedirectResponse
     {
         if (auth()->id() === $user->id) {

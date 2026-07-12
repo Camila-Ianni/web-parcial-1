@@ -12,21 +12,8 @@ use Illuminate\View\View;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 
-/**
- * Class CheckoutController
- *
- * Handles the checkout process, MercadoPago integration, and order status callbacks.
- *
- * @package App\Http\Controllers
- */
 class CheckoutController extends Controller
 {
-    /**
-     * Display the checkout page with cart summary.
-     *
-     * @param  \App\Services\CartService  $cartService
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
-     */
     public function index(CartService $cartService)
     {
         $summary = $cartService->summary();
@@ -41,13 +28,6 @@ class CheckoutController extends Controller
         ]);
     }
 
-    /**
-     * Place a pending order and redirect to MercadoPago.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Services\CartService  $cartService
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request, CartService $cartService): RedirectResponse
     {
         $summary = $cartService->summary();
@@ -65,7 +45,6 @@ class CheckoutController extends Controller
             'contact_phone.required' => 'El teléfono de contacto es obligatorio.',
         ]);
 
-        // 1. Create order
         $order = Order::create([
             'user_id' => auth()->id(),
             'status' => 'pending',
@@ -74,7 +53,6 @@ class CheckoutController extends Controller
             'contact_phone' => $request->input('contact_phone'),
         ]);
 
-        // 2. Create order items
         foreach ($summary['items'] as $item) {
             $product = Product::query()->where('slug', $item['sku'])->first();
             if ($product) {
@@ -87,7 +65,6 @@ class CheckoutController extends Controller
             }
         }
 
-        // 3. Prepare items for MercadoPago preference
         $mpItems = [];
         foreach ($summary['items'] as $item) {
             $mpItems[] = [
@@ -99,7 +76,6 @@ class CheckoutController extends Controller
             ];
         }
 
-        // 4. Create preference using SDK
         try {
             $accessToken = env('MERCADOPAGO_ACCESS_TOKEN', 'APP_USR-6523910375171787-071120-7f28e2ad3b1e32d56a29267ffea49d0d-210134950');
             MercadoPagoConfig::setAccessToken($accessToken);
@@ -123,7 +99,6 @@ class CheckoutController extends Controller
             return redirect($redirectUrl);
 
         } catch (\Exception $e) {
-            // Fallback for offline/development/invalid credentials testing
             return redirect()->route('checkout.success', [
                 'order' => $order->id,
                 'fallback' => 'true'
@@ -131,14 +106,6 @@ class CheckoutController extends Controller
         }
     }
 
-    /**
-     * Handle payment success callback.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @param  \App\Services\CartService  $cartService
-     * @return \Illuminate\View\View
-     */
     public function success(Request $request, Order $order, CartService $cartService): View
     {
         $order->update([
@@ -154,13 +121,6 @@ class CheckoutController extends Controller
         ]);
     }
 
-    /**
-     * Handle payment failure callback.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\View\View
-     */
     public function failure(Request $request, Order $order): View
     {
         $order->update([
@@ -172,14 +132,6 @@ class CheckoutController extends Controller
         ]);
     }
 
-    /**
-     * Handle payment pending callback.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @param  \App\Services\CartService  $cartService
-     * @return \Illuminate\View\View
-     */
     public function pending(Request $request, Order $order, CartService $cartService): View
     {
         $cartService->clear();

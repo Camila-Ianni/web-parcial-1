@@ -55,11 +55,6 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
-    /**
-     * Get the orders placed by the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Order::class);

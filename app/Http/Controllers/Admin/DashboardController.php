@@ -11,27 +11,13 @@ use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
-/**
- * Class DashboardController
- *
- * Handles rendering the administrative dashboard home screen with business stats.
- *
- * @package App\Http\Controllers\Admin
- */
 class DashboardController extends Controller
 {
-    /**
-     * Handle the incoming request to view the admin dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
     public function __invoke(): View
     {
-        // 1. Paid orders
         $paidOrders = Order::query()->where('status', 'paid')->get();
         $totalRevenue = $paidOrders->sum('total_price');
 
-        // 2. Best selling product calculated in PHP for database compatibility
         $items = OrderItem::query()
             ->join('orders', 'order_items.order_id', '=', 'orders.id')
             ->where('orders.status', 'paid')
@@ -52,10 +38,9 @@ class DashboardController extends Controller
         $bestSellerName = $bestProduct ? $bestProduct->name : 'N/A';
         $bestSellerQty = $bestProductId ? $productQuantities[$bestProductId] : 0;
 
-        // 3. Month with highest billing
         $monthlyRevenue = [];
         foreach ($paidOrders as $order) {
-            $monthName = $order->created_at->translatedFormat('F Y'); // e.g. "julio 2026"
+            $monthName = $order->created_at->translatedFormat('F Y');
             if (!isset($monthlyRevenue[$monthName])) {
                 $monthlyRevenue[$monthName] = 0.0;
             }
