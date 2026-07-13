@@ -167,4 +167,30 @@ class CheckoutTest extends TestCase
         $response->assertSee(number_format($product->price * 3, 2));
         $response->assertSee($product->name);
     }
+
+    public function test_mercadopago_webhook_updates_order_status(): void
+    {
+        $user = User::factory()->create();
+        $order = Order::create([
+            'user_id' => $user->id,
+            'status' => 'pending',
+            'total_price' => 150.00,
+            'payment_id' => 'mp-payment-12345',
+            'shipping_address' => 'Calle Falsa 123',
+            'contact_phone' => '9999-9999',
+        ]);
+
+        $response = $this->postJson(route('webhooks.mercadopago'), [
+            'type' => 'payment',
+            'data' => [
+                'id' => 'mp-payment-12345'
+            ]
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson(['status' => 'success']);
+
+        $order->refresh();
+        $this->assertEquals('paid', $order->status);
+    }
 }

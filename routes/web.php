@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -44,6 +45,8 @@ Route::middleware('auth')->group(function (): void {
 	Route::get('/perfil', [ProfileController::class, 'show'])->name('profile.show');
 	Route::put('/perfil', [ProfileController::class, 'update'])->name('profile.update');
 });
+
+Route::post('/webhooks/mercadopago', [WebhookController::class, 'handle'])->name('webhooks.mercadopago');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function (): void {
 	Route::get('/', DashboardController::class)->name('dashboard');
