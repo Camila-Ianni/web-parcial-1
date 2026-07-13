@@ -78,8 +78,9 @@ class CheckoutController extends Controller
         }
 
         try {
-            $accessToken = env('MERCADOPAGO_ACCESS_TOKEN', 'APP_USR-6523910375171787-071120-7f28e2ad3b1e32d56a29267ffea49d0d-210134950');
+            $accessToken = config('services.mercadopago.access_token') ?: 'TEST-1448162810211929-071313-33ec00fcc792f42ad1b6a522325679e7-1274661593';
             MercadoPagoConfig::setAccessToken($accessToken);
+            MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
 
             $client = new PreferenceClient();
             $preference = $client->create([
@@ -100,6 +101,11 @@ class CheckoutController extends Controller
             return redirect($redirectUrl);
 
         } catch (\Exception $e) {
+            $details = '';
+            if (method_exists($e, 'getApiResponse') && $e->getApiResponse()) {
+                $details = json_encode($e->getApiResponse()->getContent(), JSON_PRETTY_PRINT);
+            }
+            \Illuminate\Support\Facades\Log::error('MercadoPago Error: ' . $e->getMessage() . "\nDetails: " . $details . "\n" . $e->getTraceAsString());
             return redirect()->route('checkout.success', [
                 'order' => $order->id,
                 'fallback' => 'true'

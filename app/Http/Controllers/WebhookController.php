@@ -25,7 +25,8 @@ class WebhookController extends Controller
                     return response()->json(['status' => 'success']);
                 }
 
-                MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
+                MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token') ?: 'TEST-1448162810211929-071313-33ec00fcc792f42ad1b6a522325679e7-1274661593');
+                MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
 
                 $payment = (new PaymentClient())->get((string) $id);
                 $orderId = $payment->external_reference ?? null;
