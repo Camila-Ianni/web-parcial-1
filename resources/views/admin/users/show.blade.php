@@ -182,7 +182,7 @@
                 </td>
                 <td>
                   <span style="font-size: 12px; font-weight: bold; color: #666; background: #f1f5f9; padding: 2px 8px; border-radius: 6px;">
-                    {{ $purchase->product->category }}
+                    {{ $purchase->product->category->name }}
                   </span>
                 </td>
                 <td style="font-weight: 900; color: var(--hot-pink); font-size: 15px;">

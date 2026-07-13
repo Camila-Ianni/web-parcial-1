@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Services\CartService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
@@ -46,7 +47,7 @@ class CheckoutController extends Controller
         ]);
 
         $order = Order::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'status' => 'pending',
             'total_price' => $summary['total'],
             'shipping_address' => $request->input('shipping_address'),
@@ -108,6 +109,12 @@ class CheckoutController extends Controller
 
     public function success(Request $request, Order $order, CartService $cartService): View
     {
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $order->load('items.product');
+
         $order->update([
             'status' => 'paid',
             'payment_id' => $order->payment_id ?: $request->input('payment_id')
@@ -123,6 +130,12 @@ class CheckoutController extends Controller
 
     public function failure(Request $request, Order $order): View
     {
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $order->load('items.product');
+
         $order->update([
             'status' => 'failed'
         ]);
@@ -134,6 +147,12 @@ class CheckoutController extends Controller
 
     public function pending(Request $request, Order $order, CartService $cartService): View
     {
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $order->load('items.product');
+
         $cartService->clear();
 
         return view('checkout.pending', [

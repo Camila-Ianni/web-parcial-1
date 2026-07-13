@@ -21,7 +21,7 @@ Usuario con pedidos e historial de compras ya generados por Seeder:
 ## Credenciales Sandbox de MercadoPago
 
 Para la prueba de la pasarela de pago en modo Sandbox, se preconfiguró la siguiente credencial de prueba:
-- **Access Token**: `APP_USR-6523910375171787-071120-7f28e2ad3b1e32d56a29267ffea49d0d-210134950`
+- **Access Token**: `TEST-1448162810211929-071313-33ec00fcc792f42ad1b6a522325679e7-1274661593`
 
 ## Pasos para correr el proyecto
 
