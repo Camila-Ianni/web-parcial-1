@@ -13,7 +13,7 @@
 
     @if($isFallback)
       <div style="background: #e6fffa; border: 1px solid #ffd3e8; padding: 12px; border-radius: 16px; font-size: 13px; font-weight: bold; color: #00875a; margin-bottom: 25px; line-height: 1.4;">
-        💡 <strong>Modo de Simulación Activo:</strong> MercadoPago se completó automáticamente de forma local para facilitar la corrección offline.
+        💡 Pago con MercadoPago simulado aprobado
       </div>
     @endif
 
