@@ -12,8 +12,8 @@
     <h2 style="font-size: 18px; color: #222; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.05em;">Tu compra se ha registrado con éxito</h2>
 
     @if($isFallback)
-      <div style="background: #e6fffa; border: 1px solid #ffd3e8; padding: 12px; border-radius: 16px; font-size: 13px; font-weight: bold; color: #00875a; margin-bottom: 25px; line-height: 1.4;">
-        💡 Pago con MercadoPago simulado aprobado
+      <div style="background: #fff5f5; border: 2px dashed var(--hot-pink); padding: 15px; border-radius: 16px; font-size: 13px; font-weight: bold; color: #d93838; margin-bottom: 25px; line-height: 1.4; text-align: left;">
+        💡 <strong>Pago con MercadoPago simulado aprobado:</strong> Se activó la simulación local porque las credenciales (Access Token) configuradas en el archivo <code>.env</code> son inválidas o expiraron. Para ver la interfaz real de MercadoPago, coloca un <code>MERCADOPAGO_ACCESS_TOKEN</code> válido en tu <code>.env</code>.
       </div>
     @endif
 
