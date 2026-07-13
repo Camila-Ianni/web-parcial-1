@@ -29,9 +29,25 @@
     <div style="background: white; border-radius: 24px; padding: 24px; border: 2px solid var(--hot-pink); box-shadow: 0 10px 25px rgba(255, 79, 163, 0.05);">
       <h3 style="font-family: 'Playfair Display', serif; font-style: italic; color: var(--hot-pink); font-size: 22px; margin-bottom: 15px; border-bottom: 2px dashed var(--soft-pink); padding-bottom: 8px;">Datos Personales</h3>
       
-      <form action="{{ route('profile.update') }}" method="POST">
+      <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
+        <div style="text-align: center; margin-bottom: 20px;">
+          @if($user->profile_image)
+            <img src="{{ asset($user->profile_image) }}" alt="Foto de perfil" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--hot-pink); display: block; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+          @else
+            <div style="width: 100px; height: 100px; border-radius: 50%; background: #ffd3e7; color: var(--hot-pink); font-size: 36px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; border: 3px solid var(--hot-pink); box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+              👤
+            </div>
+          @endif
+          
+          <label for="profile_image" style="display: inline-block; padding: 6px 12px; background: var(--soft-pink); color: var(--hot-pink); border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; border: 1px solid var(--hot-pink);">
+            Subir Foto 📸
+          </label>
+          <input type="file" name="profile_image" id="profile_image" style="display: none;" onchange="document.getElementById('profile-image-changed-msg').style.display='block';">
+          <span id="profile-image-changed-msg" style="display: none; font-size: 11px; color: #00875a; font-weight: bold; margin-top: 4px;">Imagen seleccionada</span>
+        </div>
 
         <div style="margin-bottom: 15px; text-align: left;">
           <label for="name" style="display: block; font-size: 11px; font-weight: bold; text-transform: uppercase; color: #555; margin-bottom: 6px; letter-spacing: 0.05em;">Nombre</label>

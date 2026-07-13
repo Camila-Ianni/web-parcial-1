@@ -51,6 +51,35 @@ class DashboardController extends Controller
         $bestMonth = !empty($monthlyRevenue) ? array_key_first($monthlyRevenue) : 'N/A';
         $bestMonthRevenue = !empty($monthlyRevenue) ? $monthlyRevenue[$bestMonth] : 0.0;
 
+        $products = Product::query()->get();
+        $productStats = [];
+        foreach ($products as $prod) {
+            $unitsSold = OrderItem::query()
+                ->join('orders', 'order_items.order_id', '=', 'orders.id')
+                ->where('orders.status', 'paid')
+                ->where('order_items.product_id', $prod->id)
+                ->sum('order_items.quantity');
+                
+            $revenueGenerated = OrderItem::query()
+                ->join('orders', 'order_items.order_id', '=', 'orders.id')
+                ->where('orders.status', 'paid')
+                ->where('order_items.product_id', $prod->id)
+                ->selectRaw('SUM(order_items.quantity * order_items.price) as total')
+                ->value('total') ?? 0.0;
+                
+            $productStats[] = [
+                'name' => $prod->name,
+                'image' => $prod->image_path,
+                'price' => $prod->price,
+                'sold' => (int) $unitsSold,
+                'revenue' => (float) $revenueGenerated,
+            ];
+        }
+
+        usort($productStats, function ($a, $b) {
+            return $b['sold'] <=> $a['sold'];
+        });
+
         return view('admin.dashboard', [
             'postsCount' => Post::query()->count(),
             'productsCount' => Product::query()->count(),
@@ -60,6 +89,7 @@ class DashboardController extends Controller
             'bestSellerQty' => $bestSellerQty,
             'bestMonth' => ucfirst($bestMonth),
             'bestMonthRevenue' => $bestMonthRevenue,
+            'productStats' => $productStats,
         ]);
     }
 }

@@ -169,8 +169,13 @@ header {
       @if(auth()->user()->is_admin)
         <a href="{{ route('admin.dashboard') }}" style="color: var(--hot-pink); font-weight: 900;">Admin</a>
       @endif
-      <a href="{{ route('profile.show') }}" class="{{ request()->routeIs('profile.show') ? 'active' : '' }}" style="font-weight: bold;">
-        👤 Perfil
+      <a href="{{ route('profile.show') }}" class="{{ request()->routeIs('profile.show') ? 'active' : '' }}" style="font-weight: bold; display: inline-flex; align-items: center; gap: 6px;">
+        @if(auth()->user()->profile_image)
+          <img src="{{ asset(auth()->user()->profile_image) }}" alt="" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1px solid var(--hot-pink);">
+        @else
+          <span>👤</span>
+        @endif
+        Perfil
       </a>
       <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         Salir

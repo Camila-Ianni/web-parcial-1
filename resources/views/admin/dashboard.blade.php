@@ -17,8 +17,8 @@
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px;">
     
     <!-- Stat 1: Total Revenue -->
-    <div class="panel" style="border-top: 5px solid var(--hot-pink); display: flex; flex-direction: column; justify-content: center; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 79, 163, 0.05);">
-      <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">💰 Facturación Total</span>
+    <div class="panel" onclick="toggleBreakdown()" style="border-top: 5px solid var(--hot-pink); display: flex; flex-direction: column; justify-content: center; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 79, 163, 0.05); cursor: pointer; transition: 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+      <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">💰 Facturación Total (Ver Detalle)</span>
       <span style="font-size: 26px; font-weight: 900; color: var(--hot-pink); font-family: 'Inter', sans-serif;">
         ${{ number_format($totalRevenue, 2) }}
       </span>
@@ -26,8 +26,8 @@
     </div>
 
     <!-- Stat 2: Best Seller -->
-    <div class="panel" style="border-top: 5px solid var(--bubblegum); display: flex; flex-direction: column; justify-content: center; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 79, 163, 0.05);">
-      <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">👑 Producto Estrella</span>
+    <div class="panel" onclick="toggleBreakdown()" style="border-top: 5px solid var(--bubblegum); display: flex; flex-direction: column; justify-content: center; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 79, 163, 0.05); cursor: pointer; transition: 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+      <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">👑 Producto Estrella (Ver Detalle)</span>
       <span style="font-size: 17px; font-weight: 900; color: var(--dark-magenta); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Playfair Display', serif; font-style: italic; display: block;" title="{{ $bestSellerName }}">
         {{ $bestSellerName }}
       </span>
@@ -159,4 +159,68 @@
       <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-weight: bold; margin-top: 6px;">Editorial Sticker</p>
     </section>
   </div>
+
+  <!-- Detailed Statistics Breakdown Section (collapsible) -->
+  <section id="breakdown-details" class="panel" style="display: none; border-top: 6px solid var(--hot-pink); margin-top: 24px;">
+    <h2 style="font-size: 20px; font-family: 'Playfair Display', serif; font-style: italic; color: var(--dark-magenta); margin-bottom: 18px; border-bottom: 1px solid var(--soft-pink); padding-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+      <span>📊 Desglose de Ventas y Ganancias por Producto</span>
+      <button onclick="document.getElementById('breakdown-details').style.display='none'" style="background: none; border: none; font-size: 16px; cursor: pointer; color: var(--hot-pink); font-weight: bold;">❌ Cerrar</button>
+    </h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Producto / Outfit</th>
+            <th style="text-align: center;">Precio Unitario</th>
+            <th style="text-align: center;">Unidades Vendidas</th>
+            <th style="text-align: right;">Total Recaudado</th>
+            <th>Rendimiento</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($productStats as $stat)
+            <tr>
+              <td>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div style="width: 32px; height: 32px; border-radius: 6px; background: var(--soft-pink); display: flex; align-items: center; justify-content: center; font-size: 14px;">
+                    👗
+                  </div>
+                  <strong style="color: var(--ink);">{{ $stat['name'] }}</strong>
+                </div>
+              </td>
+              <td style="text-align: center; color: #666; font-weight: bold;">
+                ${{ number_format($stat['price'], 2) }}
+              </td>
+              <td style="text-align: center; font-weight: bold; color: var(--dark-magenta);">
+                {{ $stat['sold'] }} uds.
+              </td>
+              <td style="text-align: right; font-weight: 900; color: var(--hot-pink); font-size: 15px;">
+                ${{ number_format($stat['revenue'], 2) }}
+              </td>
+              <td>
+                @if($stat['sold'] > 0)
+                  <span style="color: #065f46; background: #d1fae5; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 12px; text-transform: uppercase;">Activo ✨</span>
+                @else
+                  <span style="color: #991b1b; background: #fee2e2; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 12px; text-transform: uppercase;">Sin Ventas 💤</span>
+                @endif
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+  function toggleBreakdown() {
+      const bd = document.getElementById('breakdown-details');
+      if (bd.style.display === 'none' || bd.style.display === '') {
+          bd.style.display = 'block';
+          bd.scrollIntoView({ behavior: 'smooth' });
+      } else {
+          bd.style.display = 'none';
+      }
+  }
+  </script>
 @endsection

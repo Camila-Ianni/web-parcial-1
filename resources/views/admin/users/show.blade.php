@@ -34,7 +34,11 @@
   <div style="display: flex; flex-direction: column; gap: 20px;">
     <section class="panel" style="background: white; padding: 20px 20px 30px; text-align: center; border: 1px solid #ffd3e8; box-shadow: 0 10px 30px rgba(255, 79, 163, 0.08); border-radius: 12px;">
       <div style="width: 100%; aspect-ratio: 1; background: radial-gradient(circle, #fff3f8 0%, #fde6ef 100%); border: 1px solid #ffd3e8; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 80px; margin-bottom: 18px; position: relative; overflow: hidden;">
-        💅
+        @if($user->profile_image)
+          <img src="{{ asset($user->profile_image) }}" alt="Foto de perfil" style="width: 100%; height: 100%; object-fit: cover;">
+        @else
+          💅
+        @endif
         <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255, 79, 163, 0.1); padding: 4px; font-size: 11px; font-weight: bold; color: var(--hot-pink); text-transform: uppercase; letter-spacing: 0.1em;">
           @if($user->is_admin) Admin @else Member @endif
         </div>
