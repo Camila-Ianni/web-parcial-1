@@ -90,7 +90,6 @@ class CheckoutController extends Controller
                     "failure" => route('checkout.failure', ['order' => $order->id]),
                     "pending" => route('checkout.pending', ['order' => $order->id]),
                 ],
-                "auto_return" => "approved",
                 "external_reference" => (string) $order->id,
             ]);
 
